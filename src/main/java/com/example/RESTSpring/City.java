@@ -23,7 +23,7 @@ public class City {
 
     @ManyToOne
     @JoinColumn(name="country_id")
-    // @JsonIgnore
+    @JsonIgnore
     private Country country;
 
     public Integer getCity_id() {

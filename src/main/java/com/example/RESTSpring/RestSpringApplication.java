@@ -257,5 +257,25 @@ public class RestSpringApplication {
 		return null;
 	}
 
+	@GetMapping("getCitiesByCountryQuery")
+	public Iterable<City> GetCitiesCountryQuery(@RequestBody Country country_input)
+	{
+		Integer country_id = null;
+		Country match_country = null;
+
+		for(Country country : this.country_repo.findAll())
+		{
+			if(country.getCountry().equals(country_input.getCountry()))
+			{
+				country_id = country.getCountry_id();
+				match_country = country;
+				break;
+			}
+		}
+		if(match_country == null) return null;
+
+		return country_repo.getCityQuery(match_country);
+	}
+
 
 }

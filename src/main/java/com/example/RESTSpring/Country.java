@@ -1,8 +1,10 @@
 package com.example.RESTSpring;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
@@ -23,7 +25,14 @@ public class Country {
     private String country;
 
     @OneToMany(mappedBy = "country")
+    @JsonIgnore
     private List<City> cities;
+
+
+
+    public List<City> getCityQuery(String Country){
+        return null;
+    }
 
     public Integer getCountry_id() {
         return country_id;
