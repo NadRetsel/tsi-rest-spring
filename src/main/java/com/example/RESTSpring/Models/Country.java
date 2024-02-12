@@ -1,10 +1,9 @@
-package com.example.RESTSpring;
+package com.example.RESTSpring.Models;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
-import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.example.RESTSpring;
+package com.example.RESTSpring.Models;
 
 import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;

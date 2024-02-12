@@ -1,4 +1,4 @@
-package com.example.RESTSpring;
+package com.example.RESTSpring.Models;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

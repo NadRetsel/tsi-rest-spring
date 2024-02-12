@@ -1,7 +1,6 @@
 package com.example.RESTSpring;
-import com.example.RESTSpring.Controllers.ActorController;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import com.example.RESTSpring.Controllers.*;
+import com.example.RESTSpring.Models.*;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.boot.SpringApplication;
@@ -27,6 +26,7 @@ public class RestSpringApplication {
 		this.city_repo = city_repo;
 
 		new ActorController(actor_repo);
+		new FilmController(actor_repo, film_repo);
 	}
 
 	public static void main(String[] args) {
