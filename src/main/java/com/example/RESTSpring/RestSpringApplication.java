@@ -1,5 +1,6 @@
 package com.example.RESTSpring;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.boot.SpringApplication;
@@ -160,6 +161,24 @@ public class RestSpringApplication {
 
 	}
 
+	@PutMapping("/addActorToFilm")
+	public Film AddActorToFilm(@RequestBody Map<String,Integer> film_actor_request)
+	{
+		Film film = film_repo.findById(film_actor_request.get("film_id")).orElse(null);
+		Actor actor = actor_repo.findById(film_actor_request.get("actor_id")).orElse(null);
+
+		if(film == null || actor == null) return null;
+
+		// System.out.println(film + " " + actor);
+
+		Set<Actor> all_actors = film.getActors();
+		all_actors.add(actor);
+		film.setActors(all_actors);
+		film_repo.save(film);
+
+		return GetFilm(film.getFilm_id());
+	}
+
 	/*
 	@PutMapping("/updateFilm/{id}")
 	public Film UpdateFilm(@PathVariable("id") Integer old_id, @RequestBody Film new_film)
@@ -260,21 +279,16 @@ public class RestSpringApplication {
 	@GetMapping("getCitiesByCountryQuery")
 	public Iterable<City> GetCitiesCountryQuery(@RequestBody Country country_input)
 	{
-		Integer country_id = null;
-		Country match_country = null;
-
 		for(Country country : this.country_repo.findAll())
 		{
 			if(country.getCountry().equals(country_input.getCountry()))
 			{
-				country_id = country.getCountry_id();
-				match_country = country;
-				break;
+				return country_repo.getCityQuery(country);
 			}
 		}
-		if(match_country == null) return null;
+		return null;
 
-		return country_repo.getCityQuery(match_country);
+
 	}
 
 

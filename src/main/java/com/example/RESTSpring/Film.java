@@ -51,7 +51,7 @@ public class Film {
 
     @ManyToMany(mappedBy = "films")
     // @JsonBackReference
-    @JsonIgnore
+    // @JsonIgnore
     private Set<Actor> actors = new HashSet<>();
 
 
