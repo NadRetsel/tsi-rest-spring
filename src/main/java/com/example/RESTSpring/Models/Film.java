@@ -49,7 +49,11 @@ public class Film {
     private String special_features;
 
 
-    @ManyToMany(mappedBy = "films")
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(name = "film_actor",
+            joinColumns = { @JoinColumn(name = "film_id", referencedColumnName = "film_id") },
+            inverseJoinColumns = { @JoinColumn(name = "actor_id", referencedColumnName =  "actor_id") }
+    )
     // @JsonBackReference
     // @JsonIgnore
     private Set<Actor> actors = new HashSet<>();
