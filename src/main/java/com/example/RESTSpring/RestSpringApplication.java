@@ -1,4 +1,5 @@
 package com.example.RESTSpring;
+import com.example.RESTSpring.Controllers.ActorController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +15,6 @@ import java.util.*;
 @CrossOrigin
 public class RestSpringApplication {
 
-	@Autowired
 	private ActorRepository actor_repo;
 	private FilmRepository film_repo;
 	private CountryRepository country_repo;
@@ -25,6 +25,8 @@ public class RestSpringApplication {
 		this.film_repo = film_repo;
 		this.country_repo = country_repo;
 		this.city_repo = city_repo;
+
+		new ActorController(actor_repo);
 	}
 
 	public static void main(String[] args) {
