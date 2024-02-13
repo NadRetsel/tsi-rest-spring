@@ -1,13 +1,17 @@
 package com.example.RESTSpring;
 
+
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+
+
 @SpringBootTest
-class RestSpringApplicationTests {
+// @ContextConfiguration(classes = RestSpringApplication.class, loader = SpringBootContextLoader.class)
+public class RestSpringApplicationTests {
 
 	@Test
-	void contextLoads() {
+	public void contextLoads() throws Exception {
 	}
 
 }

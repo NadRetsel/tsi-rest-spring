@@ -1,33 +1,60 @@
 package com.example.RESTSpring;
 
-import com.example.RESTSpring.Models.Actor;
+import com.example.RESTSpring.Actor.Actor;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.junit.jupiter.api.Assertions;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 
 public class ActorStepDefs {
 
-    private int id;
-    private String name;
+    private Actor new_actor;
 
-    @Given("userID is {int}")
-    public void UserIDIs(int id)
+    private String input_first_name;
+    private String input_last_name;
+
+
+
+    @Given("first name is set to {string}")
+    public void FirstName(String first_name)
     {
-        this.id = id;
+        this.input_first_name = first_name;
+    }
+    @Given("last name is set to {string}")
+    public void LastName(String last_name)
+    {
+        this.input_last_name = last_name;
     }
 
-    @When("I ask what user's first name is")
-    public void IAskWhatUsersFirstNameIs()
+    @When("I create a new Actor")
+    public void CreateNewActor()
     {
-        this.name = "BOB";
+        this.new_actor = new Actor();
+        this.new_actor.setFirst_name(this.input_first_name);
+        this.new_actor.setLast_name(this.input_last_name);
     }
 
-    @Then("I should be told {string}")
-    public void IShouldBeTold(String expected)
+    @Then("the Actor names should be filled")
+    public void FilledActor()  {
+        Assertions.assertNotNull(this.new_actor.getFirst_name());
+        Assertions.assertNotNull(this.new_actor.getLast_name());
+    }
+    @And("first name should be {string}")
+    public void MatchingFirstName(String expexcted_first_name)
     {
-        assertEquals(expected, this.name);
+        Assertions.assertEquals(expexcted_first_name, this.new_actor.getFirst_name());
+
+    }
+    @And("last name should be {string}")
+    public void MatchingLastName(String expexcted_last_name)
+    {
+        Assertions.assertEquals(expexcted_last_name, this.new_actor.getLast_name());
+
     }
 
 

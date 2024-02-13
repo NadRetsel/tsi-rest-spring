@@ -1,18 +1,12 @@
-Feature: Testing user idk
+Feature: Actors
 
-  Scenario: User 1 is ROBERT
-    Given userID is 1
-    When I ask what user's first name is
-    Then I should be told "ROBERT"
-
-
-  Scenario: User 2 is BOB
-    Given userID is 2
-    When I ask what user's first name is
-    Then I should be told "BOB"
+  Scenario: Creating an Actor
+    Given first name is set to "BOB"
+      And last name is set to "BUILDER"
+    When I create a new Actor
+    Then the Actor names should be filled
+      And first name should be "BOB"
+      And last name should be "BUILDER"
 
 
-  Scenario: client makes call to GET /user/1
-    When the client calls /user/1
-    Then the client receives status code of 200
-    And the client receives server version 1.0
+

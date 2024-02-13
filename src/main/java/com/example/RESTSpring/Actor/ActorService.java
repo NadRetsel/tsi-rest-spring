@@ -16,6 +16,12 @@ public class ActorService {
         return actor_repo.findAll();
     }
 
+    public ActorService()
+    {
+
+    }
+
+
     public static Actor GetActorByID(ActorRepository actor_repo, Integer actor_id)
     {
         return actor_repo.findById(actor_id).orElse(null);

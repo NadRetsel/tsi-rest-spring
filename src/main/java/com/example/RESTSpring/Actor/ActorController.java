@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/actor")
+@RequestMapping("/actors")
 public class ActorController {
 
     private ActorRepository actor_repo;

@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/film")
+@RequestMapping("/films")
 public class FilmController {
 
     private FilmRepository film_repo;
