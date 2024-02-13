@@ -1,5 +1,6 @@
-package com.example.RESTSpring.Models;
+package com.example.RESTSpring.Film;
 
+import com.example.RESTSpring.Actor.Actor;
 import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 

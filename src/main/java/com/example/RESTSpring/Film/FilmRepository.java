@@ -1,4 +1,4 @@
-package com.example.RESTSpring.Models;
+package com.example.RESTSpring.Film;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

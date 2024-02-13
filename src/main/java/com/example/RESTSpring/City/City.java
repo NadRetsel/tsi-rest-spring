@@ -1,5 +1,6 @@
-package com.example.RESTSpring.Models;
+package com.example.RESTSpring.City;
 
+import com.example.RESTSpring.Country.Country;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;

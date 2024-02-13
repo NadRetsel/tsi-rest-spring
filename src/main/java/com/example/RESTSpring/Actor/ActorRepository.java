@@ -1,4 +1,4 @@
-package com.example.RESTSpring.Models;
+package com.example.RESTSpring.Actor;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ActorRepository extends JpaRepository<Actor,Integer>{

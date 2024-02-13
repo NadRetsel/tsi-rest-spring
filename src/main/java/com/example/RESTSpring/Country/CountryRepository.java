@@ -1,5 +1,6 @@
-package com.example.RESTSpring.Models;
+package com.example.RESTSpring.Country;
 
+import com.example.RESTSpring.City.City;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

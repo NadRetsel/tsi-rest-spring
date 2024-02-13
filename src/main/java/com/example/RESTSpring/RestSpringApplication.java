@@ -1,6 +1,14 @@
 package com.example.RESTSpring;
-import com.example.RESTSpring.Controllers.*;
-import com.example.RESTSpring.Models.*;
+import com.example.RESTSpring.Actor.Actor;
+import com.example.RESTSpring.Actor.ActorController;
+import com.example.RESTSpring.Actor.ActorRepository;
+import com.example.RESTSpring.City.City;
+import com.example.RESTSpring.City.CityRepository;
+import com.example.RESTSpring.Country.Country;
+import com.example.RESTSpring.Country.CountryRepository;
+import com.example.RESTSpring.Film.Film;
+import com.example.RESTSpring.Film.FilmController;
+import com.example.RESTSpring.Film.FilmRepository;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.boot.SpringApplication;
@@ -14,7 +22,7 @@ import java.util.*;
 @CrossOrigin
 public class RestSpringApplication {
 
-	private ActorRepository actor_repo;
+	public static ActorRepository actor_repo;
 	private FilmRepository film_repo;
 	private CountryRepository country_repo;
 	private CityRepository city_repo;

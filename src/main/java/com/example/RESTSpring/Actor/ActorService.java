@@ -1,9 +1,6 @@
-package com.example.RESTSpring.Services;
+package com.example.RESTSpring.Actor;
 
-import com.example.RESTSpring.Models.Actor;
-import com.example.RESTSpring.Models.ActorRepository;
-import com.example.RESTSpring.Models.Film;
-import org.springframework.web.bind.annotation.*;
+import com.example.RESTSpring.Film.Film;
 
 import java.util.LinkedList;
 import java.util.List;
