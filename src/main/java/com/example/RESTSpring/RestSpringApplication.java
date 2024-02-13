@@ -9,6 +9,7 @@ import com.example.RESTSpring.Country.CountryRepository;
 import com.example.RESTSpring.Film.Film;
 import com.example.RESTSpring.Film.FilmController;
 import com.example.RESTSpring.Film.FilmRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.boot.SpringApplication;
@@ -22,9 +23,15 @@ import java.util.*;
 @CrossOrigin
 public class RestSpringApplication {
 
-	public static ActorRepository actor_repo;
+
+
+	@Autowired
+	private ActorRepository actor_repo;
+	@Autowired
 	private FilmRepository film_repo;
+	@Autowired
 	private CountryRepository country_repo;
+	@Autowired
 	private CityRepository city_repo;
 
 	public RestSpringApplication(ActorRepository actor_repo, FilmRepository film_repo, CountryRepository country_repo, CityRepository city_repo) {
@@ -33,8 +40,6 @@ public class RestSpringApplication {
 		this.country_repo = country_repo;
 		this.city_repo = city_repo;
 
-		new ActorController(actor_repo);
-		new FilmController(actor_repo, film_repo);
 	}
 
 	public static void main(String[] args) {

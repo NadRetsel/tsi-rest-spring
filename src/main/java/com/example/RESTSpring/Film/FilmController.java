@@ -11,24 +11,22 @@ import java.util.Set;
 @RequestMapping("/films")
 public class FilmController {
 
-    private FilmRepository film_repo;
-    private ActorRepository actor_repo;
+    private FilmService film_service;
 
-    public FilmController(ActorRepository actor_repo, FilmRepository film_repo) {
-        this.actor_repo = actor_repo;
-        this.film_repo = film_repo;
+    public FilmController(FilmService film_service) {
+        this.film_service = film_service;
     }
 
-    @GetMapping("/all")
+    @GetMapping("")
     public Iterable<Film> GetAllFilms()
     {
-        return FilmService.GetAllFilms(this.film_repo);
+        return this.film_service.GetAllFilms();
     }
 
-    @GetMapping("/get/{id}")
+    @GetMapping("/{id}")
     public Film GetFilm(@PathVariable("id") Integer film_id)
     {
-        return  FilmService.GetFilm(this.film_repo, film_id);
+        return  this.film_service.GetFilm(film_id);
 		/*
 		return actor_repo
 				.findById(actor_id)
@@ -36,16 +34,16 @@ public class FilmController {
 		 */
     }
 
-    @PostMapping("/add")
+    @PostMapping("")
     public Film AddFilm(@RequestBody Film new_film)
     {
-        return FilmService.AddFilm(this.film_repo, new_film);
+        return this.film_service.AddFilm(new_film);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public Film DeleteFilm(@PathVariable("id") Integer film_id)
     {
-        return FilmService.DeleteFilm(this.film_repo, film_id);
+        return this.film_service.DeleteFilm(film_id);
 
     }
 
@@ -53,8 +51,7 @@ public class FilmController {
     public Film AddActorToFilm(@RequestBody Map<String,Integer> film_actor_request)
     {
         Integer id = film_actor_request.get("film_id");
-        this.film_repo = FilmService.AddActorToFilm(this.film_repo, this.actor_repo, film_actor_request);
-        return FilmService.GetFilm(this.film_repo, id);
+        return this.film_service.AddActorToFilm(film_actor_request);
     }
 
 	/*
@@ -78,7 +75,7 @@ public class FilmController {
     @GetMapping("/allFilmActors")
     public Iterable<Set<Actor>> AllFilmActors()
     {
-        return FilmService.AllFilmActors(this.film_repo);
+        return this.film_service.AllFilmActors();
     }
 
 

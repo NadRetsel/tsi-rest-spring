@@ -1,36 +1,40 @@
 package com.example.RESTSpring.Actor;
 
 import com.example.RESTSpring.Film.Film;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+@Service
 public class ActorService {
 
-    public static Iterable<Actor> GetAllActors(ActorRepository actor_repo)
-    {
-        return actor_repo.findAll();
+
+    @Autowired
+    private final ActorRepository actor_repository;
+    public ActorService (ActorRepository actor_repository) {
+        this.actor_repository = actor_repository;
     }
 
-    public ActorService()
+    public Iterable<Actor> GetAllActors()
     {
-
+        return this.actor_repository.findAll();
     }
 
-
-    public static Actor GetActorByID(ActorRepository actor_repo, Integer actor_id)
+    public Actor GetActorByID(Integer actor_id)
     {
-        return actor_repo.findById(actor_id).orElse(null);
+        return this.actor_repository.findById(actor_id).orElse(null);
     }
 
-    public static List<Actor> GetActorByName(ActorRepository actor_repo, Actor actor_input) {
+    public List<Actor> GetActorByName(Actor actor_input) {
         String actor_input_first_name = actor_input.getFirst_name();
         String actor_input_last_name = actor_input.getLast_name();
 
         // Find all actors in table with matching names
         List<Actor> matching_actors = new LinkedList<>();
-        for (Actor actor : actor_repo.findAll()) {
+        for (Actor actor : this.actor_repository.findAll()) {
             String actor_first_name = actor.getFirst_name();
             String actor_last_name = actor.getLast_name();
 
@@ -61,33 +65,32 @@ public class ActorService {
         return matching_actors;
     }
 
-    public static Actor AddNewActor(ActorRepository actor_repo, Actor new_actor)
+    public Actor AddNewActor(Actor new_actor)
     {
-        return actor_repo.save(new_actor);
+        return this.actor_repository.save(new_actor);
     }
 
-    public static Actor DeleteActor(ActorRepository actor_repo, Integer actor_id)
+    public Actor DeleteActor(Integer actor_id)
     {
-        Actor actor = GetActorByID(actor_repo, actor_id);
+        Actor actor = GetActorByID(actor_id);
 
         if(actor == null) return null;
 
-        actor_repo.deleteById(actor_id);
+        this.actor_repository.deleteById(actor_id);
 
         return actor;
 
     }
 
-    public static Actor UpdateActor(ActorRepository actor_repo, Integer old_id, Actor new_actor)
+    public Actor UpdateActor(Integer old_id, Actor new_actor)
     {
-        System.out.println(actor_repo);
-        Actor old_actor = GetActorByID(actor_repo, old_id);
+        Actor old_actor = GetActorByID(old_id);
 
         if(old_actor == null) return null;
 
         old_actor.setFirst_name(new_actor.getFirst_name());
         old_actor.setLast_name(new_actor.getLast_name());
-        actor_repo.save(old_actor);
+        this.actor_repository.save(old_actor);
 
         return old_actor;
     }
@@ -95,10 +98,10 @@ public class ActorService {
 
 
     // ===== ACTORS + FILM =====
-    public static Iterable<Set<Film>> ActorAllFilms(ActorRepository actor_repo)
+    public Iterable<Set<Film>> ActorAllFilms()
     {
         List<Set<Film>> all_films = new LinkedList<>();
-        for(Actor actor : actor_repo.findAll())
+        for(Actor actor : this.actor_repository.findAll())
         {
             all_films.add(actor.getFilms());
         }
@@ -108,17 +111,17 @@ public class ActorService {
     }
 
 
-    public static Set<Film> ActorAllFilmsByID(ActorRepository actor_repo, Integer actor_id)
+    public Set<Film> ActorAllFilmsByID(Integer actor_id)
     {
-        Actor actor = actor_repo.findById(actor_id).orElse(null);
+        Actor actor = this.actor_repository.findById(actor_id).orElse(null);
         if(actor == null) return null;
 
         return actor.getFilms();
     }
 
-    public static List<Set<Film>> ActorAllFilmsByName(ActorRepository actor_repo, Actor actor_input)
+    public List<Set<Film>> ActorAllFilmsByName(Actor actor_input)
     {
-        List<Actor> matching_actors = GetActorByName(actor_repo, actor_input);
+        List<Actor> matching_actors = GetActorByName(actor_input);
 
         // Get all films by every actor of matching name
         List<Set<Film>> all_films_by_actor = new LinkedList<>();

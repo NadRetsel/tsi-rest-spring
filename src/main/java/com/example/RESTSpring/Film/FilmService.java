@@ -4,22 +4,35 @@ import com.example.RESTSpring.Actor.Actor;
 import com.example.RESTSpring.Actor.ActorRepository;
 import com.example.RESTSpring.Film.Film;
 import com.example.RESTSpring.Film.FilmRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+@Service
 public class FilmService {
+    @Autowired
+    private FilmRepository film_repository;
+    @Autowired
+    private ActorRepository actor_repository;
 
-    public static Iterable<Film> GetAllFilms(FilmRepository film_repo)
+    public FilmService(FilmRepository film_repository, ActorRepository actor_repository)
     {
-        return film_repo.findAll();
+        this.film_repository = film_repository;
+        this.actor_repository = actor_repository;
     }
 
-    public static Film GetFilm(FilmRepository film_repo, Integer film_id)
+    public Iterable<Film> GetAllFilms()
     {
-        return film_repo.findById(film_id).orElse(null);
+        return this.film_repository.findAll();
+    }
+
+    public Film GetFilm(Integer film_id)
+    {
+        return this.film_repository.findById(film_id).orElse(null);
 		/*
 		return actor_repo
 				.findById(actor_id)
@@ -27,41 +40,38 @@ public class FilmService {
 		 */
     }
 
-    public static Film AddFilm(FilmRepository film_repo, Film new_film)
+    public Film AddFilm(Film new_film)
     {
-        return film_repo.save(new_film);
+        return this.film_repository.save(new_film);
     }
 
-    public static Film DeleteFilm(FilmRepository film_repo, Integer film_id)
+    public Film DeleteFilm(Integer film_id)
     {
-        Film film = GetFilm(film_repo, film_id);
+        Film film = GetFilm(film_id);
 
         if(film == null) return null;
 
-        film_repo.deleteById(film_id);
+        this.film_repository.deleteById(film_id);
 
         return film;
 
     }
 
-    public static FilmRepository AddActorToFilm(FilmRepository film_repo, ActorRepository actor_repo, Map<String, Integer> film_actor_request)
+    public Film AddActorToFilm(Map<String, Integer> film_actor_request)
     {
-        System.out.println(film_repo);
-        System.out.println(actor_repo);
+        Film film = this.film_repository.findById(film_actor_request.get("film_id")).orElse(null);
+        Actor actor = this.actor_repository.findById(film_actor_request.get("actor_id")).orElse(null);
 
-        Film film = film_repo.findById(film_actor_request.get("film_id")).orElse(null);
-        Actor actor = actor_repo.findById(film_actor_request.get("actor_id")).orElse(null);
-
-        if(film == null || actor == null) return film_repo;
+        if(film == null || actor == null) return null;
 
         System.out.println(film + " " + actor);
 
         Set<Actor> all_actors = film.getActors();
         all_actors.add(actor);
         film.setActors(all_actors);
-        film_repo.save(film);
+        this.film_repository.save(film);
 
-        return film_repo;
+        return film;
     }
 
 	/*
@@ -82,14 +92,13 @@ public class FilmService {
 
 
     // ===== FILMS + ACTORS
-    public static Iterable<Set<Actor>> AllFilmActors(FilmRepository film_repo)
+    public Iterable<Set<Actor>> AllFilmActors()
     {
         List<Set<Actor>> all_actors = new LinkedList<>();
-        for(Film film : film_repo.findAll())
+        for(Film film : this.film_repository.findAll())
         {
             all_actors.add(film.getActors());
         }
-        System.out.println(all_actors.size());
 
         return all_actors;
     }
