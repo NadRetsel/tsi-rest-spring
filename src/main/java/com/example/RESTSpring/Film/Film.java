@@ -2,6 +2,9 @@ package com.example.RESTSpring.Film;
 
 import com.example.RESTSpring.Actor.Actor;
 import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import jakarta.persistence.*;
 
 import java.util.*;
@@ -11,6 +14,7 @@ import java.util.*;
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "film_id")
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class Film {
     @Id
     @Column(name="film_id",unique=true)

@@ -9,6 +9,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name="film_actor")
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class FilmActor {
 
     @EmbeddedId

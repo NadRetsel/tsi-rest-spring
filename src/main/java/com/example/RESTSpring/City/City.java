@@ -4,6 +4,8 @@ import com.example.RESTSpring.Country.Country;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import jakarta.persistence.*;
 
 @Entity
@@ -11,6 +13,7 @@ import jakarta.persistence.*;
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "city_id")
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class City {
     public City(){}
 

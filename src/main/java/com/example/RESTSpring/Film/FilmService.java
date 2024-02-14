@@ -18,8 +18,7 @@ public class FilmService {
     @Autowired
     private FilmActorRepository filmActorRepository;
 
-    public FilmService(FilmRepository filmRepository, ActorRepository actorRepository, FilmActorRepository filmActorRepository)
-    {
+    public FilmService(FilmRepository filmRepository, ActorRepository actorRepository, FilmActorRepository filmActorRepository) {
         this.filmRepository = filmRepository;
         this.actorRepository = actorRepository;
         this.filmActorRepository = filmActorRepository;
@@ -30,8 +29,7 @@ public class FilmService {
         return this.filmRepository.findAll();
     }
 
-    public Film GetFilm(Integer filmId)
-    {
+    public Film GetFilm(Integer filmId) {
         return this.filmRepository
                 .findById(filmId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Film not found with given ID"));
@@ -46,6 +44,8 @@ public class FilmService {
     {
         Film film = GetFilm(filmId);
         film.UpdateFilm(filmDTO);
+
+        System.out.println(filmDTO.getActorIds());
 
         if(filmDTO.getActorIds() != null) UpdateFilmActor(filmId, filmDTO.getActorIds());
 
@@ -76,6 +76,8 @@ public class FilmService {
         {
             if(filmId.equals(filmActor.getFilmActorKey().getFilmId())) filmActorRepository.delete(filmActor);
         }
+
+        System.out.println(actorIds.size());
 
         // Add FilmActors with new actorIds
         for(Integer actorId : actorIds)
