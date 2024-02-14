@@ -47,6 +47,14 @@ public class FilmController {
 
     }
 
+    @PutMapping("/{id}")
+    public Film UpdateFilm(@PathVariable("id") Integer film_id, @RequestBody FilmDTO film_dto)
+    {
+        return this.film_service.UpdateFilm(film_id, film_dto);
+    }
+
+
+    /*
     @PutMapping("/addActor")
     public Film AddActorToFilm(@RequestBody Map<String,Integer> film_actor_request)
     {
@@ -54,29 +62,21 @@ public class FilmController {
         return this.film_service.AddActorToFilm(film_actor_request);
     }
 
-	/*
-	@PutMapping("/updateFilm/{id}")
-	public Film UpdateFilm(@PathVariable("id") Integer old_id, @RequestBody Film new_film)
-	{
-		Film old_film = GetFilm(old_id);
-
-		if(old_film == null) return null;
-
-		old_film.set (new_film.get ());
-		old_film.set (new_film.get ());
-		film_repo.save(new_film);
-
-		return new_film;
-	}
-	*/
-
-
-    // ===== FILMS + ACTORS
+        // ===== FILMS + ACTORS
     @GetMapping("/allFilmActors")
     public Iterable<Set<Actor>> AllFilmActors()
     {
         return this.film_service.AllFilmActors();
     }
+
+     */
+
+
+
+
+
+
+
 
 
 

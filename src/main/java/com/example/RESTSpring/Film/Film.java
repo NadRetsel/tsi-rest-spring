@@ -12,7 +12,6 @@ import java.util.*;
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "film_id")
 public class Film {
-    public Film(){}
     @Id
     @Column(name="film_id",unique=true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -59,13 +58,29 @@ public class Film {
     // @JsonIgnore
     private Set<Actor> actors = new HashSet<>();
 
+    public Film(){}
 
-    public Set<Actor> getActors() {
-        return actors;
+    public Film(FilmDTO film_dto)
+    {
+        this.UpdateFilm(film_dto);
     }
-    public void setActors(Set<Actor> actors) {
-        this.actors = actors;
+
+    public void UpdateFilm(FilmDTO film_dto)
+    {
+        if(null != film_dto.getFilm_id())               this.film_id = film_dto.getFilm_id();
+        if(null != film_dto.getTitle())                 this.title = film_dto.getTitle();
+        if(null != film_dto.getDescription())           this.description = film_dto.getDescription();
+        if(null != film_dto.getLanguage_id())           this.language_id = film_dto.getLanguage_id();
+        if(null != film_dto.getOriginal_language_id())  this.original_language_id = film_dto.getOriginal_language_id();
+        if(null != film_dto.getRental_rate())           this.rental_duration = film_dto.getRental_duration();
+        if(null != film_dto.getRental_duration())       this.rental_rate = film_dto.getRental_rate();
+        if(null != film_dto.getLength())                this.length = film_dto.getLength();
+        if(null != film_dto.getReplacement_cost())      this.replacement_cost = film_dto.getReplacement_cost();
+        if(null != film_dto.getRating())                this.rating = film_dto.getRating();
+        if(null != film_dto.getSpecial_features())      this.special_features = film_dto.getSpecial_features();
+
     }
+
 
     public Integer getFilm_id() {
         return film_id;
@@ -153,5 +168,13 @@ public class Film {
 
     public void setSpecial_features(String special_features) {
         this.special_features = special_features;
+    }
+
+    public Set<Actor> getActors() {
+        return actors;
+    }
+
+    public void setActors(Set<Actor> actors) {
+        this.actors = actors;
     }
 }

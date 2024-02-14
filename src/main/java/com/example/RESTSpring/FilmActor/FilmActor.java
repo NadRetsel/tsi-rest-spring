@@ -6,26 +6,23 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name="film_actor")
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "film_actor_id")
 public class FilmActor {
 
     @EmbeddedId
-    private FilmActorEntry film_actor_entry;
+    private FilmActorKey film_actor_key;
+
+    public FilmActor(){}
 
     public FilmActor(Integer film_id, Integer actor_id)
     {
-        this.film_actor_entry = new FilmActorEntry(film_id, actor_id);
+        this.film_actor_key = new FilmActorKey(film_id, actor_id);
     }
 
-    public FilmActorEntry GetFilm_actor_entry()
-    {
-        return film_actor_entry;
+    public FilmActorKey getFilm_actor_key() {
+        return film_actor_key;
     }
 
-    public void SetFilm_actor_entry(FilmActorEntry film_actor_entry)
-    {
-        this.film_actor_entry = film_actor_entry;
+    public void setFilm_actor_key(FilmActorKey film_actor_key) {
+        this.film_actor_key = film_actor_key;
     }
 }

@@ -1,6 +1,10 @@
 package com.example.RESTSpring.FilmActor;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 
-public interface FilmActorRepository extends JpaRepository<FilmActor,Integer> {
+import java.util.Set;
+
+public interface FilmActorRepository extends JpaRepository<FilmActor, FilmActorKey> {
+
 }

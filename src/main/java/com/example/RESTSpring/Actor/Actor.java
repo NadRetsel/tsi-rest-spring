@@ -12,7 +12,6 @@ import java.util.*;
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "actor_id")
 public class Actor {
-    public Actor(){}
 
     @Id
     @Column(name="actor_id",unique=true)
@@ -35,25 +34,24 @@ public class Actor {
     @JsonIgnore
     private Set<Film> films = new HashSet<>();
 
-
-
-    public void setActor_id(Integer actor_id) {
-        this.actor_id = actor_id;
+    public Actor(){}
+    public Actor(ActorDTO actor_dto)
+    {
+        this.UpdateActor(actor_dto);
     }
 
-    public Set<Film> getFilms() {
-        return films;
+    public void UpdateActor(ActorDTO actor_dto)
+    {
+       if(actor_dto.getFirst_name() != null) this.last_name = actor_dto.getFirst_name();
+       if(actor_dto.getLast_name() != null)  this.last_name = actor_dto.getLast_name();
     }
 
-    public void setFilms(Set<Film> films) {
-        this.films = films;
-    }
 
     public Integer getActor_id() {
         return actor_id;
     }
 
-    public void setActor_id(int actor_id) {
+    public void setActor_id(Integer actor_id) {
         this.actor_id = actor_id;
     }
 
@@ -71,5 +69,13 @@ public class Actor {
 
     public void setLast_name(String last_name) {
         this.last_name = last_name;
+    }
+
+    public Set<Film> getFilms() {
+        return films;
+    }
+
+    public void setFilms(Set<Film> films) {
+        this.films = films;
     }
 }
