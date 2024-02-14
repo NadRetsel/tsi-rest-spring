@@ -15,7 +15,7 @@ public class Film {
     @Id
     @Column(name="film_id",unique=true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer film_id;
+    private Integer filmId;
 
     @Column(name="title")
     private String title;
@@ -24,29 +24,29 @@ public class Film {
     private String description;
 
     @Column(name="language_id")
-    private Integer language_id;
+    private Integer languageId;
 
     @Column(name="original_language_id")
-    private Integer original_language_id;
+    private Integer originalLanguageId;
 
     @Column(name="rental_duration")
-    private Integer rental_duration;
+    private Integer rentalDuration;
 
     @Column(name="rental_rate")
-    private Double rental_rate;
+    private Double rentalRate;
 
     @Column(name="length")
     private Integer length;
 
     @Column(name="replacement_cost")
-    private Integer replacement_cost;
+    private Integer replacementCost;
 
 
     @Column(name="rating")
     private String rating;
 
     @Column(name="special_features")
-    private String special_features;
+    private String specialFeatures;
 
 
     @ManyToMany(cascade = { CascadeType.ALL })
@@ -60,34 +60,34 @@ public class Film {
 
     public Film(){}
 
-    public Film(FilmDTO film_dto)
+    public Film(FilmDTO filmDto)
     {
-        this.UpdateFilm(film_dto);
+        this.UpdateFilm(filmDto);
     }
 
-    public void UpdateFilm(FilmDTO film_dto)
+    public void UpdateFilm(FilmDTO filmDto)
     {
-        if(null != film_dto.getFilm_id())               this.film_id = film_dto.getFilm_id();
-        if(null != film_dto.getTitle())                 this.title = film_dto.getTitle();
-        if(null != film_dto.getDescription())           this.description = film_dto.getDescription();
-        if(null != film_dto.getLanguage_id())           this.language_id = film_dto.getLanguage_id();
-        if(null != film_dto.getOriginal_language_id())  this.original_language_id = film_dto.getOriginal_language_id();
-        if(null != film_dto.getRental_rate())           this.rental_duration = film_dto.getRental_duration();
-        if(null != film_dto.getRental_duration())       this.rental_rate = film_dto.getRental_rate();
-        if(null != film_dto.getLength())                this.length = film_dto.getLength();
-        if(null != film_dto.getReplacement_cost())      this.replacement_cost = film_dto.getReplacement_cost();
-        if(null != film_dto.getRating())                this.rating = film_dto.getRating();
-        if(null != film_dto.getSpecial_features())      this.special_features = film_dto.getSpecial_features();
+        if(null != filmDto.getFilmId())             this.filmId = filmDto.getFilmId();
+        if(null != filmDto.getTitle())              this.title = filmDto.getTitle();
+        if(null != filmDto.getDescription())        this.description = filmDto.getDescription();
+        if(null != filmDto.getLanguageId())         this.languageId = filmDto.getLanguageId();
+        if(null != filmDto.getOriginalLanguageId()) this.originalLanguageId = filmDto.getOriginalLanguageId();
+        if(null != filmDto.getRentalRate())         this.rentalDuration = filmDto.getRentalDuration();
+        if(null != filmDto.getRentalDuration())     this.rentalRate = filmDto.getRentalRate();
+        if(null != filmDto.getLength())             this.length = filmDto.getLength();
+        if(null != filmDto.getReplacementCost())    this.replacementCost = filmDto.getReplacementCost();
+        if(null != filmDto.getRating())             this.rating = filmDto.getRating();
+        if(null != filmDto.getSpecialFeatures())    this.specialFeatures = filmDto.getSpecialFeatures();
 
     }
 
 
-    public Integer getFilm_id() {
-        return film_id;
+    public Integer getFilmId() {
+        return filmId;
     }
 
-    public void setFilm_id(Integer film_id) {
-        this.film_id = film_id;
+    public void setFilmId(Integer filmId) {
+        this.filmId = filmId;
     }
 
     public String getTitle() {
@@ -106,36 +106,36 @@ public class Film {
         this.description = description;
     }
 
-    public Integer getLanguage_id() {
-        return language_id;
+    public Integer getLanguageId() {
+        return languageId;
     }
 
-    public void setLanguage_id(Integer language_id) {
-        this.language_id = language_id;
+    public void setLanguageId(Integer languageId) {
+        this.languageId = languageId;
     }
 
-    public Integer getOriginal_language_id() {
-        return original_language_id;
+    public Integer getOriginalLanguageId() {
+        return originalLanguageId;
     }
 
-    public void setOriginal_language_id(Integer original_language_id) {
-        this.original_language_id = original_language_id;
+    public void setOriginalLanguageId(Integer originalLanguageId) {
+        this.originalLanguageId = originalLanguageId;
     }
 
-    public Integer getRental_duration() {
-        return rental_duration;
+    public Integer getRentalDuration() {
+        return rentalDuration;
     }
 
-    public void setRental_duration(Integer rental_duration) {
-        this.rental_duration = rental_duration;
+    public void setRentalDuration(Integer rentalDuration) {
+        this.rentalDuration = rentalDuration;
     }
 
-    public Double getRental_rate() {
-        return rental_rate;
+    public Double getRentalRate() {
+        return rentalRate;
     }
 
-    public void setRental_rate(Double rental_rate) {
-        this.rental_rate = rental_rate;
+    public void setRentalRate(Double rentalRate) {
+        this.rentalRate = rentalRate;
     }
 
     public Integer getLength() {
@@ -146,12 +146,12 @@ public class Film {
         this.length = length;
     }
 
-    public Integer getReplacement_cost() {
-        return replacement_cost;
+    public Integer getReplacementCost() {
+        return replacementCost;
     }
 
-    public void setReplacement_cost(Integer replacement_cost) {
-        this.replacement_cost = replacement_cost;
+    public void setReplacementCost(Integer replacementCost) {
+        this.replacementCost = replacementCost;
     }
 
     public String getRating() {
@@ -162,12 +162,12 @@ public class Film {
         this.rating = rating;
     }
 
-    public String getSpecial_features() {
-        return special_features;
+    public String getSpecialFeatures() {
+        return specialFeatures;
     }
 
-    public void setSpecial_features(String special_features) {
-        this.special_features = special_features;
+    public void setSpecialFeatures(String specialFeatures) {
+        this.specialFeatures = specialFeatures;
     }
 
     public Set<Actor> getActors() {

@@ -19,7 +19,7 @@ public class Country {
     @Id
     @Column(name="country_id",unique=true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer country_id;
+    private Integer countryId;
 
     @Column(name="country")
     private String country;
@@ -34,12 +34,12 @@ public class Country {
         return null;
     }
 
-    public Integer getCountry_id() {
-        return country_id;
+    public Integer getCountryId() {
+        return countryId;
     }
 
-    public void setCountry_id(Integer country_id) {
-        this.country_id = country_id;
+    public void setCountryId(Integer countryId) {
+        this.countryId = countryId;
     }
 
     public String getCountry() {

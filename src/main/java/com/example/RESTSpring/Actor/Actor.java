@@ -16,13 +16,13 @@ public class Actor {
     @Id
     @Column(name="actor_id",unique=true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer actor_id;
+    private Integer actorId;
 
     @Column(name="first_name")
-    private String first_name;
+    private String firstName;
 
     @Column(name="last_name")
-    private String last_name;
+    private String lastName;
 
 
     @ManyToMany(cascade = { CascadeType.ALL })
@@ -40,41 +40,35 @@ public class Actor {
         this.UpdateActor(actor_dto);
     }
 
-    public void UpdateActor(ActorDTO actor_dto)
+    public void UpdateActor(ActorDTO actorDto)
     {
-       if(actor_dto.getFirst_name() != null) this.last_name = actor_dto.getFirst_name();
-       if(actor_dto.getLast_name() != null)  this.last_name = actor_dto.getLast_name();
+       if(actorDto.getFirstName() != null) this.lastName = actorDto.getFirstName();
+       if(actorDto.getLastName() != null)  this.lastName = actorDto.getLastName();
     }
 
 
-    public Integer getActor_id() {
-        return actor_id;
+    public Integer getActorId() {
+        return actorId;
     }
-
-    public void setActor_id(Integer actor_id) {
-        this.actor_id = actor_id;
+    public String getFirstName() {
+        return firstName;
     }
-
-    public String getFirst_name() {
-        return first_name;
+    public String getLastName() {
+        return lastName;
     }
-
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
-    }
-
-    public String getLast_name() {
-        return last_name;
-    }
-
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
-    }
-
     public Set<Film> getFilms() {
         return films;
     }
 
+    public void setActorId(Integer actorId) {
+        this.actorId = actorId;
+    }
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
     public void setFilms(Set<Film> films) {
         this.films = films;
     }

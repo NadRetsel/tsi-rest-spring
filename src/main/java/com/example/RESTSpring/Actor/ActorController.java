@@ -2,8 +2,6 @@ package com.example.RESTSpring.Actor;
 
 import com.example.RESTSpring.Film.Film;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,48 +12,48 @@ import java.util.Set;
 public class ActorController {
 
     @Autowired
-    private final ActorService actor_service;
+    private final ActorService actorService;
 
-    public ActorController(ActorService actor_service) {
-        this.actor_service = actor_service;
+    public ActorController(ActorService actorService) {
+        this.actorService = actorService;
     }
 
     // ========== ACTORS ==========
     @GetMapping("")
     public Iterable<Actor> GetAllActors()
     {
-        return this.actor_service.GetAllActors();
+        return this.actorService.GetAllActors();
     }
 
     @GetMapping("/{id}")
-    public Actor GetActorByID(@PathVariable("id") Integer actor_id)
+    public Actor GetActorByID(@PathVariable("id") Integer actorId)
     {
-        return this.actor_service.GetActorByID(actor_id);
+        return this.actorService.GetActorByID(actorId);
     }
 
     @GetMapping("/getByName")
-    public List<Actor> GetActorByName(@RequestBody ActorDTO actor_input) {
+    public List<Actor> GetActorByName(@RequestBody ActorDTO actorInput) {
 
-        return this.actor_service.GetActorByName(actor_input);
+        return this.actorService.GetActorByName(actorInput);
     }
 
     @PostMapping("")
-    public Actor AddActor(@RequestBody ActorDTO new_actor)
+    public Actor AddActor(@RequestBody ActorDTO newActor)
     {
-        return this.actor_service.AddActor(new_actor);
+        return this.actorService.AddActor(newActor);
     }
 
     @DeleteMapping("/{id}")
-    public Actor DeleteActor(@PathVariable("id") Integer actor_id)
+    public Actor DeleteActor(@PathVariable("id") Integer actorId)
     {
-        return this.actor_service.DeleteActor(actor_id);
+        return this.actorService.DeleteActor(actorId);
 
     }
 
     @PutMapping("/{id}")
-    public Actor UpdateActor(@PathVariable("id") Integer old_id, @RequestBody ActorDTO new_actor)
+    public Actor UpdateActor(@PathVariable("id") Integer oldId, @RequestBody ActorDTO newActor)
     {
-        return this.actor_service.UpdateActor(old_id, new_actor);
+        return this.actorService.UpdateActor(oldId, newActor);
     }
 
 
@@ -65,20 +63,20 @@ public class ActorController {
     @GetMapping("/allFilms")
     public Iterable<Set<Film>> ActorAllFilms()
     {
-        return this.actor_service.ActorAllFilms();
+        return this.actorService.ActorAllFilms();
     }
 
 
 
     @GetMapping("/{id}/allFilms")
-    public Set<Film> ActorAllFilmsByID(@PathVariable("id") Integer actor_id)
+    public Set<Film> ActorAllFilmsByID(@PathVariable("id") Integer actorId)
     {
-        return this.actor_service.ActorAllFilmsByID(actor_id);
+        return this.actorService.ActorAllFilmsByID(actorId);
     }
 
     @GetMapping("/allFilmsByName")
-    public List<Set<Film>> ActorAllFilmsByName(@RequestBody ActorDTO actor_input)
+    public List<Set<Film>> ActorAllFilmsByName(@RequestBody ActorDTO actorInput)
     {
-        return this.actor_service.ActorAllFilmsByName(actor_input);
+        return this.actorService.ActorAllFilmsByName(actorInput);
     }
 }

@@ -24,19 +24,12 @@ import java.util.*;
 public class RestSpringApplication {
 
 
-
-	@Autowired
-	private ActorRepository actor_repo;
-	@Autowired
-	private FilmRepository film_repo;
 	@Autowired
 	private CountryRepository country_repo;
 	@Autowired
 	private CityRepository city_repo;
 
-	public RestSpringApplication(ActorRepository actor_repo, FilmRepository film_repo, CountryRepository country_repo, CityRepository city_repo) {
-		this.actor_repo = actor_repo;
-		this.film_repo = film_repo;
+	public RestSpringApplication(CountryRepository country_repo, CityRepository city_repo) {
 		this.country_repo = country_repo;
 		this.city_repo = city_repo;
 

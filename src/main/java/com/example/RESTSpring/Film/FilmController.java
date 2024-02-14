@@ -1,32 +1,27 @@
 package com.example.RESTSpring.Film;
 
-import com.example.RESTSpring.Actor.Actor;
-import com.example.RESTSpring.Actor.ActorRepository;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/films")
 public class FilmController {
 
-    private FilmService film_service;
+    private FilmService filmService;
 
-    public FilmController(FilmService film_service) {
-        this.film_service = film_service;
+    public FilmController(FilmService filmService) {
+        this.filmService = filmService;
     }
 
     @GetMapping("")
     public Iterable<Film> GetAllFilms()
     {
-        return this.film_service.GetAllFilms();
+        return this.filmService.GetAllFilms();
     }
 
     @GetMapping("/{id}")
-    public Film GetFilm(@PathVariable("id") Integer film_id)
+    public Film GetFilm(@PathVariable("id") Integer filmId)
     {
-        return  this.film_service.GetFilm(film_id);
+        return  this.filmService.GetFilm(filmId);
 		/*
 		return actor_repo
 				.findById(actor_id)
@@ -35,22 +30,22 @@ public class FilmController {
     }
 
     @PostMapping("")
-    public Film AddFilm(@RequestBody Film new_film)
+    public Film AddFilm(@RequestBody Film newFilm)
     {
-        return this.film_service.AddFilm(new_film);
+        return this.filmService.AddFilm(newFilm);
     }
 
     @DeleteMapping("/{id}")
-    public Film DeleteFilm(@PathVariable("id") Integer film_id)
+    public Film DeleteFilm(@PathVariable("id") Integer filmId)
     {
-        return this.film_service.DeleteFilm(film_id);
+        return this.filmService.DeleteFilm(filmId);
 
     }
 
     @PutMapping("/{id}")
-    public Film UpdateFilm(@PathVariable("id") Integer film_id, @RequestBody FilmDTO film_dto)
+    public Film UpdateFilm(@PathVariable("id") Integer filmId, @RequestBody FilmDTO filmDto)
     {
-        return this.film_service.UpdateFilm(film_id, film_dto);
+        return this.filmService.UpdateFilm(filmId, filmDto);
     }
 
 

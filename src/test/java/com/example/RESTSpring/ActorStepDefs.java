@@ -35,25 +35,25 @@ public class ActorStepDefs {
     public void CreateNewActor()
     {
         this.new_actor = new Actor();
-        this.new_actor.setFirst_name(this.input_first_name);
-        this.new_actor.setLast_name(this.input_last_name);
+        this.new_actor.setFirstName(this.input_first_name);
+        this.new_actor.setLastName(this.input_last_name);
     }
 
     @Then("the Actor names should be filled")
     public void FilledActor()  {
-        Assertions.assertNotNull(this.new_actor.getFirst_name());
-        Assertions.assertNotNull(this.new_actor.getLast_name());
+        Assertions.assertNotNull(this.new_actor.getFirstName());
+        Assertions.assertNotNull(this.new_actor.getLastName());
     }
     @And("first name should be {string}")
     public void MatchingFirstName(String expexcted_first_name)
     {
-        Assertions.assertEquals(expexcted_first_name, this.new_actor.getFirst_name());
+        Assertions.assertEquals(expexcted_first_name, this.new_actor.getFirstName());
 
     }
     @And("last name should be {string}")
     public void MatchingLastName(String expexcted_last_name)
     {
-        Assertions.assertEquals(expexcted_last_name, this.new_actor.getLast_name());
+        Assertions.assertEquals(expexcted_last_name, this.new_actor.getLastName());
 
     }
 

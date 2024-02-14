@@ -1,9 +1,6 @@
 package com.example.RESTSpring.Film;
 
-import com.example.RESTSpring.Actor.Actor;
 import com.example.RESTSpring.Actor.ActorRepository;
-import com.example.RESTSpring.Film.Film;
-import com.example.RESTSpring.Film.FilmRepository;
 import com.example.RESTSpring.FilmActor.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,54 +12,54 @@ import java.util.*;
 @Service
 public class FilmService {
     @Autowired
-    private FilmRepository film_repository;
+    private FilmRepository filmRepository;
     @Autowired
-    private ActorRepository actor_repository;
+    private ActorRepository actorRepository;
     @Autowired
-    private FilmActorRepository film_actor_repository;
+    private FilmActorRepository filmActorRepository;
 
-    public FilmService(FilmRepository film_repository, ActorRepository actor_repository, FilmActorRepository film_actor_repository)
+    public FilmService(FilmRepository filmRepository, ActorRepository actorRepository, FilmActorRepository filmActorRepository)
     {
-        this.film_repository = film_repository;
-        this.actor_repository = actor_repository;
-        this.film_actor_repository =  film_actor_repository;
+        this.filmRepository = filmRepository;
+        this.actorRepository = actorRepository;
+        this.filmActorRepository = filmActorRepository;
     }
 
     public Iterable<Film> GetAllFilms()
     {
-        return this.film_repository.findAll();
+        return this.filmRepository.findAll();
     }
 
-    public Film GetFilm(Integer film_id)
+    public Film GetFilm(Integer filmId)
     {
-        return this.film_repository
-                .findById(film_id)
+        return this.filmRepository
+                .findById(filmId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Film not found with given ID"));
     }
 
-    public Film AddFilm(Film new_film)
+    public Film AddFilm(Film newFilm)
     {
-        return this.film_repository.save(new_film);
+        return this.filmRepository.save(newFilm);
     }
 
-    public Film UpdateFilm(Integer film_id, FilmDTO film_dto)
+    public Film UpdateFilm(Integer filmId, FilmDTO filmDTO)
     {
-        Film film = GetFilm(film_id);
-        film.UpdateFilm(film_dto);
+        Film film = GetFilm(filmId);
+        film.UpdateFilm(filmDTO);
 
-        if(film_dto.getActor_ids() != null) UpdateFilmActor(film_id, film_dto.getActor_ids());
+        if(filmDTO.getActorIds() != null) UpdateFilmActor(filmId, filmDTO.getActorIds());
 
-        film_repository.save(film);
+        filmRepository.save(film);
         return film;
     }
 
-    public Film DeleteFilm(Integer film_id)
+    public Film DeleteFilm(Integer filmId)
     {
-        Film film = GetFilm(film_id);
+        Film film = GetFilm(filmId);
 
         if(film == null) return null;
 
-        this.film_repository.deleteById(film_id);
+        this.filmRepository.deleteById(filmId);
 
         return film;
 
@@ -70,21 +67,22 @@ public class FilmService {
 
 
 
-    public void UpdateFilmActor(Integer film_id, Set<Integer> actor_ids)
+    public void UpdateFilmActor(Integer filmId, Set<Integer> actorIds)
     {
-        // Delete all FilmActors with film_id
-        List<FilmActor> film_actors = film_actor_repository.findAll();
-        for(FilmActor film_actor : film_actors)
+        // Delete all FilmActors with filmId
+        Set<FilmActor> byFilmActorKeyFilmId = filmActorRepository.findByFilmActorKeyFilmId(filmId);
+        List<FilmActor> filmActors = filmActorRepository.findAll();
+        for(FilmActor filmActor : filmActors)
         {
-            if(film_id.equals(film_actor.getFilm_actor_key().getFilm_id())) film_actor_repository.delete(film_actor);
+            if(filmId.equals(filmActor.getFilmActorKey().getFilmId())) filmActorRepository.delete(filmActor);
         }
 
-        // Add FilmActors with new actor_ids
-        for(Integer actor_id : actor_ids)
+        // Add FilmActors with new actorIds
+        for(Integer actorId : actorIds)
         {
-            actor_repository
-                    .findById(actor_id)
-                    .ifPresent(film_actor -> film_actor_repository.save(new FilmActor(film_id, actor_id)));
+            actorRepository
+                    .findById(actorId)
+                    .ifPresent(filmActor -> filmActorRepository.save(new FilmActor(filmId, actorId)));
 
         }
 

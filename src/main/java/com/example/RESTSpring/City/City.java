@@ -17,7 +17,7 @@ public class City {
     @Id
     @Column(name="city_id",unique=true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer city_id;
+    private Integer cityId;
 
     @Column(name="city")
     private String city;
@@ -27,12 +27,12 @@ public class City {
     @JsonIgnore
     private Country country;
 
-    public Integer getCity_id() {
-        return city_id;
+    public Integer getCityId() {
+        return cityId;
     }
 
-    public void setCity_id(Integer city_id) {
-        this.city_id = city_id;
+    public void setCityId(Integer cityId) {
+        this.cityId = cityId;
     }
 
     public String getCity() {

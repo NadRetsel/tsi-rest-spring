@@ -3,27 +3,27 @@ import java.util.*;
 
 public class FilmDTO {
 
-    private Integer film_id;
+    private Integer filmId;
     private String title;
     private String description;
-    private Integer language_id;
-    private Integer original_language_id;
-    private Integer rental_duration;
-    private Double rental_rate;
+    private Integer languageId;
+    private Integer originalLanguageId;
+    private Integer rentalDuration;
+    private Double rentalRate;
     private Integer length;
-    private Integer replacement_cost;
+    private Integer replacementCost;
     private String rating;
-    private String special_features;
+    private String specialFeatures;
 
-    private Set<Integer> actor_ids = new HashSet<>();
+    private Set<Integer> actorIds = new HashSet<>();
 
 
-    public Integer getFilm_id() {
-        return film_id;
+    public Integer getFilmId() {
+        return filmId;
     }
 
-    public void setFilm_id(Integer film_id) {
-        this.film_id = film_id;
+    public void setFilmId(Integer filmId) {
+        this.filmId = filmId;
     }
 
     public String getTitle() {
@@ -42,36 +42,36 @@ public class FilmDTO {
         this.description = description;
     }
 
-    public Integer getLanguage_id() {
-        return language_id;
+    public Integer getLanguageId() {
+        return languageId;
     }
 
-    public void setLanguage_id(Integer language_id) {
-        this.language_id = language_id;
+    public void setLanguageId(Integer languageId) {
+        this.languageId = languageId;
     }
 
-    public Integer getOriginal_language_id() {
-        return original_language_id;
+    public Integer getOriginalLanguageId() {
+        return originalLanguageId;
     }
 
-    public void setOriginal_language_id(Integer original_language_id) {
-        this.original_language_id = original_language_id;
+    public void setOriginalLanguageId(Integer originalLanguageId) {
+        this.originalLanguageId = originalLanguageId;
     }
 
-    public Integer getRental_duration() {
-        return rental_duration;
+    public Integer getRentalDuration() {
+        return rentalDuration;
     }
 
-    public void setRental_duration(Integer rental_duration) {
-        this.rental_duration = rental_duration;
+    public void setRentalDuration(Integer rentalDuration) {
+        this.rentalDuration = rentalDuration;
     }
 
-    public Double getRental_rate() {
-        return rental_rate;
+    public Double getRentalRate() {
+        return rentalRate;
     }
 
-    public void setRental_rate(Double rental_rate) {
-        this.rental_rate = rental_rate;
+    public void setRentalRate(Double rentalRate) {
+        this.rentalRate = rentalRate;
     }
 
     public Integer getLength() {
@@ -82,12 +82,12 @@ public class FilmDTO {
         this.length = length;
     }
 
-    public Integer getReplacement_cost() {
-        return replacement_cost;
+    public Integer getReplacementCost() {
+        return replacementCost;
     }
 
-    public void setReplacement_cost(Integer replacement_cost) {
-        this.replacement_cost = replacement_cost;
+    public void setReplacementCost(Integer replacementCost) {
+        this.replacementCost = replacementCost;
     }
 
     public String getRating() {
@@ -98,19 +98,19 @@ public class FilmDTO {
         this.rating = rating;
     }
 
-    public String getSpecial_features() {
-        return special_features;
+    public String getSpecialFeatures() {
+        return specialFeatures;
     }
 
-    public void setSpecial_features(String special_features) {
-        this.special_features = special_features;
+    public void setSpecialFeatures(String specialFeatures) {
+        this.specialFeatures = specialFeatures;
     }
 
-    public Set<Integer> getActor_ids() {
-        return actor_ids;
+    public Set<Integer> getActorIds() {
+        return actorIds;
     }
 
-    public void setActor_ids(Set<Integer> actor_ids) {
-        this.actor_ids = actor_ids;
+    public void setActorIds(Set<Integer> actorIds) {
+        this.actorIds = actorIds;
     }
 }

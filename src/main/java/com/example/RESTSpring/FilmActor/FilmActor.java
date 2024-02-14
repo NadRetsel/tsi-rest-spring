@@ -1,7 +1,10 @@
 package com.example.RESTSpring.FilmActor;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import jakarta.persistence.*;
 
 @Entity
@@ -9,20 +12,20 @@ import jakarta.persistence.*;
 public class FilmActor {
 
     @EmbeddedId
-    private FilmActorKey film_actor_key;
+    private FilmActorKey filmActorKey;
 
     public FilmActor(){}
 
-    public FilmActor(Integer film_id, Integer actor_id)
+    public FilmActor(Integer filmId, Integer actorId)
     {
-        this.film_actor_key = new FilmActorKey(film_id, actor_id);
+        this.filmActorKey = new FilmActorKey(filmId, actorId);
     }
 
-    public FilmActorKey getFilm_actor_key() {
-        return film_actor_key;
+    public FilmActorKey getFilmActorKey() {
+        return filmActorKey;
     }
 
-    public void setFilm_actor_key(FilmActorKey film_actor_key) {
-        this.film_actor_key = film_actor_key;
+    public void setFilmActorKey(FilmActorKey filmActorKey) {
+        this.filmActorKey = filmActorKey;
     }
 }
