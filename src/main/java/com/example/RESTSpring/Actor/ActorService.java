@@ -1,6 +1,7 @@
 package com.example.RESTSpring.Actor;
 
-import com.example.RESTSpring.Film.Film;
+import com.example.RESTSpring.Film.*;
+import com.example.RESTSpring.FilmActor.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -15,8 +16,15 @@ public class ActorService {
 
     @Autowired
     private final ActorRepository actorRepository;
-    public ActorService (ActorRepository actorRepository) {
+    @Autowired
+    private final FilmRepository filmRepository;
+    @Autowired
+    private final FilmActorRepository filmActorRepository;
+
+    public ActorService (ActorRepository actorRepository, FilmRepository filmRepository, FilmActorRepository filmActorRepository) {
         this.actorRepository = actorRepository;
+        this.filmRepository = filmRepository;
+        this.filmActorRepository = filmActorRepository;
     }
 
     // Get all Actors from the repository
@@ -30,17 +38,18 @@ public class ActorService {
     {
         return this.actorRepository
                 .findById(actorId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Actor not found with given ID"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Actor cannot be found with given ID"));
     }
 
     // Get Actor by given name
-    public List<Actor> GetActorByName(ActorDTO actorInput) {
-        String actorInputFirstName = actorInput.getFirstName();
-        if(actorInputFirstName != null) actorInputFirstName = actorInputFirstName.toUpperCase();
+    public Set<Actor> GetActorByName(ActorDTO actorDTO)
+    {
+        String firstName = actorDTO.getFirstName();
+        String lastName = actorDTO.getLastName();
 
-        String actorInputLastName = actorInput.getLastName();
-        if(actorInputLastName != null) actorInputLastName = actorInputLastName.toUpperCase();
+        return this.actorRepository.getByName(firstName, lastName);
 
+        /*
         // Find all actors in table with matching names
         List<Actor> matchingActors = new LinkedList<>();
         for (Actor actor : this.actorRepository.findAll()) {
@@ -69,11 +78,16 @@ public class ActorService {
                 matchingActors.add(actor);
             }
 
+
         }
 
-        if(matchingActors.isEmpty()) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Actor not found with given name");
+
+
+        if(matchingActors.isEmpty()) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Actor(s) cannot be found with given name");
 
         return matchingActors;
+
+         */
     }
 
     public Actor AddActor(ActorDTO actorDTO)
@@ -81,12 +95,14 @@ public class ActorService {
         return this.actorRepository.save(new Actor(actorDTO));
     }
 
-
     public Actor UpdateActor(Integer actorId, ActorDTO actorDTO)
     {
         Actor actor = GetActorByID(actorId);
         actor.UpdateActor(actorDTO);
+
         this.actorRepository.save(actor);
+
+        if(actorDTO.getFilmIds() != null) this.UpdateFilmActors(actorId, actorDTO.getFilmIds());
 
         return actor;
     }
@@ -94,14 +110,25 @@ public class ActorService {
     public Actor DeleteActor(Integer actorId)
     {
         Actor actor = GetActorByID(actorId);
+
         this.actorRepository.deleteById(actorId);
 
         return actor;
     }
 
 
+    public void UpdateFilmActors(Integer actorId, Set<Integer> filmIds)
+    {
+        // Delete all existing FilmActors with actorId
+        this.filmActorRepository.deleteByFilmActorKeyActorId(actorId);
 
-    // ===== ACTORS + FILM =====
+        // Add FilmActors with new filmIds that have existing Films
+        List<Film> films = this.filmRepository.findAllById(filmIds);
+        for(Film film : films) this.filmActorRepository.save(new FilmActor(film.getFilmId(), actorId));
+    }
+
+
+
     public Iterable<Set<Film>> ActorAllFilms()
     {
         List<Set<Film>> allFilms = new LinkedList<>();
@@ -124,7 +151,7 @@ public class ActorService {
 
     public List<Set<Film>> ActorAllFilmsByName(ActorDTO actorDTO)
     {
-        List<Actor> matchingActors = GetActorByName(actorDTO);
+        Set<Actor> matchingActors = GetActorByName(actorDTO);
 
         // Get all films by every actor of matching name
         List<Set<Film>> allFilmsByActor = new LinkedList<>();

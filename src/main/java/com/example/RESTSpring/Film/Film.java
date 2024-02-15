@@ -3,7 +3,6 @@ package com.example.RESTSpring.Film;
 import com.example.RESTSpring.Actor.Actor;
 import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import jakarta.persistence.*;
 
@@ -66,10 +65,10 @@ public class Film {
 
     public Film(FilmDTO filmDto)
     {
-        this.UpdateFilm(filmDto);
+        this.updateFilm(filmDto);
     }
 
-    public void UpdateFilm(FilmDTO filmDto)
+    public void updateFilm(FilmDTO filmDto)
     {
         if(null != filmDto.getFilmId())             this.filmId = filmDto.getFilmId();
         if(null != filmDto.getTitle())              this.title = filmDto.getTitle();

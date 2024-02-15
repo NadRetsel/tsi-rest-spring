@@ -32,7 +32,7 @@ public class ActorController {
     }
 
     @GetMapping("/getByName")
-    public List<Actor> GetActorByName(@RequestBody ActorDTO actorInput) {
+    public Set<Actor> GetActorByName(@RequestBody ActorDTO actorInput) {
 
         return this.actorService.GetActorByName(actorInput);
     }
@@ -50,7 +50,7 @@ public class ActorController {
 
     }
 
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     public Actor UpdateActor(@PathVariable("id") Integer oldId, @RequestBody ActorDTO newActor)
     {
         return this.actorService.UpdateActor(oldId, newActor);
@@ -79,4 +79,5 @@ public class ActorController {
     {
         return this.actorService.ActorAllFilmsByName(actorInput);
     }
+
 }

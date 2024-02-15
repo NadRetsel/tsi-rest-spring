@@ -22,17 +22,12 @@ public class FilmController {
     public Film GetFilm(@PathVariable("id") Integer filmId)
     {
         return  this.filmService.GetFilm(filmId);
-		/*
-		return actor_repo
-				.findById(actor_id)
-				.orElseThrow(() -> new ResourceAccessException("Actor not found"));
-		 */
     }
 
     @PostMapping("")
-    public Film AddFilm(@RequestBody Film newFilm)
+    public Film AddFilm(@RequestBody FilmDTO filmDTO)
     {
-        return this.filmService.AddFilm(newFilm);
+        return this.filmService.AddFilm(filmDTO);
     }
 
     @DeleteMapping("/{id}")
@@ -42,7 +37,7 @@ public class FilmController {
 
     }
 
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     public Film UpdateFilm(@PathVariable("id") Integer filmId, @RequestBody FilmDTO filmDto)
     {
         return this.filmService.UpdateFilm(filmId, filmDto);
