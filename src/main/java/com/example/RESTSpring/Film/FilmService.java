@@ -28,9 +28,9 @@ public class FilmService {
 
     // ===== Core functions: GET, POST, PATCH, DELETE =====
     /**
-     * Get all Films from the repository
+     * Get all Films from the repository.
      *
-     * @return List of all Films from FilmRepository
+     * @return List of all Films from FilmRepository.
      */
     public Iterable<Film> GetAllFilms()
     {
@@ -38,11 +38,11 @@ public class FilmService {
     }
 
     /**
-     * Find Actor with matching ID
+     * Find Actor with matching ID.
      *
-     * @param filmId - ID of Film to be found
+     * @param filmId - ID of Film to be found.
      *
-     * @return Film with matching ID - or throw NOT_FOUND if no Films found
+     * @return Film with matching ID - or throw NOT_FOUND if no Films found.
      */
     public Film GetFilm(Integer filmId) {
         return this.filmRepository
@@ -51,11 +51,11 @@ public class FilmService {
     }
 
     /**
-     * Add new Film to the repository
+     * Add new Film to the repository.
      *
-     * @param filmDTO - Film DTO that holds the new Film's data
+     * @param filmDTO - Film DTO that holds the new Film's data.
      *
-     * @return The newly created and added Film
+     * @return The newly created and added Film.
      */
     public Film AddFilm(FilmDTO filmDTO) {
         Film newFilm = new Film(filmDTO);
@@ -63,12 +63,12 @@ public class FilmService {
     }
 
     /**
-     * Update an existing Film's fields with new data
+     * Update an existing Film's fields with new data.
      *
-     * @param filmId - The ID of the Film to be updated
-     * @param filmDTO - Holds the new data to insert into the given Film
+     * @param filmId - The ID of the Film to be updated.
+     * @param filmDTO - Holds the new data to insert into the given Film.
      *
-     * @return The updated Film
+     * @return The updated Film.
      */
     public Film UpdateFilm(Integer filmId, FilmDTO filmDTO) {
         Film film = GetFilm(filmId);
@@ -81,13 +81,14 @@ public class FilmService {
     }
 
     /**
-     * Attempts to delete the Film with matching ID from the database
+     * Attempts to delete the Film with matching ID from the database.
+     * <br>
+     * <br>NOTE: Database constraints will override and prevent the deletion.
      *
-     * NOTE: Database constraints will override and prevent the deletion
      *
-     * @param filmId - ID of the Actor to be deleted
+     * @param filmId - ID of the Actor to be deleted.
      *
-     * @return Film that was attempted to be deleted
+     * @return Film that was attempted to be deleted.
      */
     // TODO Catch constraint violations when attempting to delete
     public Film DeleteFilm(Integer filmId) {
@@ -101,10 +102,10 @@ public class FilmService {
 
     // ===== Extra functionality =====
     /**
-     * Updates the FilmActor table to replace all of Film's old Actors with the new Actors
+     * Updates the FilmActor table to replace all of Film's old Actors with the new Actors.
      *
-     * @param filmId - ID of Film that was updated
-     * @param actorIds - List of new Actors's IDs associated with the Film
+     * @param filmId - ID of Film that was updated.
+     * @param actorIds - List of new Actors's IDs associated with the Film.
      */
     public void UpdateFilmActor(Integer filmId, Set<Integer> actorIds) {
         // Delete all existing FilmActors with filmId

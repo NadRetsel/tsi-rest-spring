@@ -30,20 +30,20 @@ public class ActorService {
 
     // ===== Core functions: GET, POST, PATCH, DELETE =====
     /**
-     * Get all Actors from the repository
+     * Get all Actors from the repository.
      *
-     * @return List of all Actors from ActorRepository
+     * @return List of all Actors from ActorRepository.
      */
     public Iterable<Actor> GetAllActors() {
         return this.actorRepository.findAll();
     }
 
     /**
-     * Find Actor with matching ID
+     * Find Actor with matching ID.
      *
-     * @param actorId - ID of Actor to be found
+     * @param actorId - ID of Actor to be found.
      *
-     * @return Actor with matching ID - or throw NOT_FOUND if no Actors found
+     * @return Actor with matching ID - or throw NOT_FOUND if no Actors found.
      */
     public Actor GetActorByID(Integer actorId) {
         return this.actorRepository
@@ -52,37 +52,38 @@ public class ActorService {
     }
 
     /**
-     * Find Actor with matching name
-     * If firstName is null, match with only lastName
-     * If lastName is null, match with only firstName
-     * Otherwise, match with matching full name
+     * Find Actor with matching name.
+     * <br>
+     * <br>If firstName is null, match with only lastName.
+     * <br>If lastName is null, match with only firstName.
+     * <br>Otherwise, match with full name.
      *
-     * @param actorDTO - Actor Data Transfer Object that holds the firstName and lastName to be searched
+     * @param actorDTO - Actor Data Transfer Object that holds the firstName and lastName to be searched.
      *
-     * @return Set of Actors with matching name(s)
+     * @return Set of Actors with matching name(s).
      */
     public Set<Actor> GetActorByName(ActorDTO actorDTO) {
         return this.actorRepository.getByName(actorDTO.getFirstName(), actorDTO.getLastName());
     }
 
     /**
-     * Add new Actor to the repository
+     * Add new Actor to the repository.
      *
-     * @param actorDTO - Actor DTO that holds the new Actor's data
+     * @param actorDTO - Actor DTO that holds the new Actor's data.
      *
-     * @return The newly created and added Actor
+     * @return The newly created and added Actor.
      */
     public Actor AddActor(ActorDTO actorDTO) {
         return this.actorRepository.save(new Actor(actorDTO));
     }
 
     /**
-     * Update an existing Actor's fields with new data
+     * Update an existing Actor's fields with new data.
      *
-     * @param actorId - The ID of the Actor to be updated
-     * @param actorDTO - Holds the new data to insert into the given Actor
+     * @param actorId - The ID of the Actor to be updated.
+     * @param actorDTO - Holds the new data to insert into the given Actor.
      *
-     * @return The updated Actor
+     * @return The updated Actor.
      */
     public Actor UpdateActor(Integer actorId, ActorDTO actorDTO) {
         Actor actor = GetActorByID(actorId);
@@ -96,13 +97,13 @@ public class ActorService {
     }
 
     /**
-     * Attempts to delete the Actor with matching ID from the database
+     * Attempts to delete the Actor with matching ID from the database.
+     * <br>
+     * <br>NOTE: Database constraints will override and prevent the deletion.
      *
-     * NOTE: Database constraints will override and prevent the deletion
+     * @param actorId - ID of the Actor to be deleted.
      *
-     * @param actorId - ID of the Actor to be deleted
-     *
-     * @return Actor that was attempted to be deleted
+     * @return Actor that was attempted to be deleted.
      */
     // TODO Catch constraint violations when attempting to delete
     public Actor DeleteActor(Integer actorId) {
@@ -115,10 +116,10 @@ public class ActorService {
 
 
     /**
-     * Updates the FilmActor table to replace all of Actor's old Films with the new Films
+     * Updates the FilmActor table to replace all of Actor's old Films with the new Films.
      *
-     * @param actorId - ID of Actor that was updated
-     * @param filmIds - List of new Films's IDs associated with the Actor
+     * @param actorId - ID of Actor that was updated.
+     * @param filmIds - List of new Films's IDs associated with the Actor.
      */
     public void UpdateFilmActors(Integer actorId, Set<Integer> filmIds) {
         // Delete all existing FilmActors with actorId
