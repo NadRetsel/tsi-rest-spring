@@ -21,82 +21,70 @@ public class ActorService {
     @Autowired
     private final FilmActorRepository filmActorRepository;
 
+
     public ActorService (ActorRepository actorRepository, FilmRepository filmRepository, FilmActorRepository filmActorRepository) {
         this.actorRepository = actorRepository;
         this.filmRepository = filmRepository;
         this.filmActorRepository = filmActorRepository;
     }
 
-    // Get all Actors from the repository
-    public Iterable<Actor> GetAllActors()
-    {
+    // ===== Core functions: GET, POST, PATCH, DELETE =====
+    /**
+     * Get all Actors from the repository
+     *
+     * @return List of all Actors from ActorRepository
+     */
+    public Iterable<Actor> GetAllActors() {
         return this.actorRepository.findAll();
     }
 
-    // Get Actor by given ID
-    public Actor GetActorByID(Integer actorId)
-    {
+    /**
+     * Find Actor with matching ID
+     *
+     * @param actorId - ID of Actor to be found
+     *
+     * @return Actor with matching ID - or throw NOT_FOUND if no Actors found
+     */
+    public Actor GetActorByID(Integer actorId) {
         return this.actorRepository
                 .findById(actorId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Actor cannot be found with given ID"));
     }
 
-    // Get Actor by given name
-    public Set<Actor> GetActorByName(ActorDTO actorDTO)
-    {
-        String firstName = actorDTO.getFirstName();
-        String lastName = actorDTO.getLastName();
-
-        return this.actorRepository.getByName(firstName, lastName);
-
-        /*
-        // Find all actors in table with matching names
-        List<Actor> matchingActors = new LinkedList<>();
-        for (Actor actor : this.actorRepository.findAll()) {
-            String actorFirstName = actor.getFirstName();
-            String actorLastName = actor.getLastName();
-
-            // Accept matching last name if first name is NULL
-            if (actorInputFirstName == null){
-                if(actorLastName.equals(actorInputLastName)){
-                    matchingActors.add(actor);
-                    continue;
-                }
-            }
-
-            // Accept matching first name if last name is NULL
-            if (actorInputLastName == null){
-                if(actorFirstName.equals(actorInputFirstName)){
-                    matchingActors.add(actor);
-                    continue;
-                }
-            }
-
-            // Accept matching first name and last name
-            if (actorFirstName.equals(actorInputFirstName) && actorLastName.equals(actorInputLastName))
-            {
-                matchingActors.add(actor);
-            }
-
-
-        }
-
-
-
-        if(matchingActors.isEmpty()) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Actor(s) cannot be found with given name");
-
-        return matchingActors;
-
-         */
+    /**
+     * Find Actor with matching name
+     * If firstName is null, match with only lastName
+     * If lastName is null, match with only firstName
+     * Otherwise, match with matching full name
+     *
+     * @param actorDTO - Actor Data Transfer Object that holds the firstName and lastName to be searched
+     *
+     * @return Set of Actors with matching name(s)
+     */
+    public Set<Actor> GetActorByName(ActorDTO actorDTO) {
+        return this.actorRepository.getByName(actorDTO.getFirstName(), actorDTO.getLastName());
     }
 
-    public Actor AddActor(ActorDTO actorDTO)
-    {
+    /**
+     * Add new Actor to the repository
+     *
+     * @param actorDTO - Actor DTO that holds the new Actor's data
+     *
+     * @return The newly created and added Actor
+     */
+    public Actor AddActor(ActorDTO actorDTO) {
         return this.actorRepository.save(new Actor(actorDTO));
     }
 
-    public Actor UpdateActor(Integer actorId, ActorDTO actorDTO)
-    {
+    /**
+     * Update an existing Actor's fields with new data
+     *
+     * @param actorId - The ID of the Actor to be updated
+     * @param actorDTO - Holds the new data to insert into the given Actor
+     *
+     * @return The updated Actor
+     */
+    public Actor UpdateActor(Integer actorId, ActorDTO actorDTO) {
         Actor actor = GetActorByID(actorId);
         actor.UpdateActor(actorDTO);
 
@@ -107,8 +95,17 @@ public class ActorService {
         return actor;
     }
 
-    public Actor DeleteActor(Integer actorId)
-    {
+    /**
+     * Attempts to delete the Actor with matching ID from the database
+     *
+     * NOTE: Database constraints will override and prevent the deletion
+     *
+     * @param actorId - ID of the Actor to be deleted
+     *
+     * @return Actor that was attempted to be deleted
+     */
+    // TODO Catch constraint violations when attempting to delete
+    public Actor DeleteActor(Integer actorId) {
         Actor actor = GetActorByID(actorId);
 
         this.actorRepository.deleteById(actorId);
@@ -117,8 +114,13 @@ public class ActorService {
     }
 
 
-    public void UpdateFilmActors(Integer actorId, Set<Integer> filmIds)
-    {
+    /**
+     * Updates the FilmActor table to replace all of Actor's old Films with the new Films
+     *
+     * @param actorId - ID of Actor that was updated
+     * @param filmIds - List of new Films's IDs associated with the Actor
+     */
+    public void UpdateFilmActors(Integer actorId, Set<Integer> filmIds) {
         // Delete all existing FilmActors with actorId
         this.filmActorRepository.deleteByFilmActorKeyActorId(actorId);
 
@@ -128,9 +130,9 @@ public class ActorService {
     }
 
 
+    // ===== Extra functionality =====
 
-    public Iterable<Set<Film>> ActorAllFilms()
-    {
+    public Iterable<Set<Film>> ActorAllFilms() {
         List<Set<Film>> allFilms = new LinkedList<>();
         for(Actor actor : this.actorRepository.findAll())
         {
@@ -142,15 +144,13 @@ public class ActorService {
     }
 
 
-    public Set<Film> ActorAllFilmsByID(Integer actorId)
-    {
+    public Set<Film> ActorAllFilmsByID(Integer actorId) {
         Actor actor = GetActorByID(actorId);
 
         return actor.getFilms();
     }
 
-    public List<Set<Film>> ActorAllFilmsByName(ActorDTO actorDTO)
-    {
+    public List<Set<Film>> ActorAllFilmsByName(ActorDTO actorDTO) {
         Set<Actor> matchingActors = GetActorByName(actorDTO);
 
         // Get all films by every actor of matching name
@@ -161,5 +161,6 @@ public class ActorService {
         }
         return allFilmsByActor;
     }
+
 }
 

@@ -26,92 +26,93 @@ public class FilmDTO {
         return filmId;
     }
 
-    public void setFilmId(Integer filmId) {
-        this.filmId = filmId;
-    }
-
     public String getTitle() {
         return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public Integer getLanguageId() {
         return languageId;
-    }
-
-    public void setLanguageId(Integer languageId) {
-        this.languageId = languageId;
     }
 
     public Integer getOriginalLanguageId() {
         return originalLanguageId;
     }
 
-    public void setOriginalLanguageId(Integer originalLanguageId) {
-        this.originalLanguageId = originalLanguageId;
-    }
-
     public Integer getRentalDuration() {
         return rentalDuration;
-    }
-
-    public void setRentalDuration(Integer rentalDuration) {
-        this.rentalDuration = rentalDuration;
     }
 
     public Double getRentalRate() {
         return rentalRate;
     }
 
-    public void setRentalRate(Double rentalRate) {
-        this.rentalRate = rentalRate;
-    }
-
     public Integer getLength() {
         return length;
-    }
-
-    public void setLength(Integer length) {
-        this.length = length;
     }
 
     public Integer getReplacementCost() {
         return replacementCost;
     }
 
-    public void setReplacementCost(Integer replacementCost) {
-        this.replacementCost = replacementCost;
-    }
-
     public String getRating() {
         return rating;
-    }
-
-    public void setRating(String rating) {
-        this.rating = rating;
     }
 
     public String getSpecialFeatures() {
         return specialFeatures;
     }
 
-    public void setSpecialFeatures(String specialFeatures) {
-        this.specialFeatures = specialFeatures;
-    }
-
     public Set<Integer> getActorIds() {
         return actorIds;
+    }
+
+
+    public void setFilmId(Integer filmId) {
+        this.filmId = filmId;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setLanguageId(Integer languageId) {
+        this.languageId = languageId;
+    }
+
+    public void setOriginalLanguageId(Integer originalLanguageId) {
+        this.originalLanguageId = originalLanguageId;
+    }
+
+    public void setRentalDuration(Integer rentalDuration) {
+        this.rentalDuration = rentalDuration;
+    }
+
+    public void setRentalRate(Double rentalRate) {
+        this.rentalRate = rentalRate;
+    }
+
+    public void setLength(Integer length) {
+        this.length = length;
+    }
+
+    public void setReplacementCost(Integer replacementCost) {
+        this.replacementCost = replacementCost;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
+    }
+
+    public void setSpecialFeatures(String specialFeatures) {
+        this.specialFeatures = specialFeatures;
     }
 
     public void setActorIds(Set<Integer> actorIds) {

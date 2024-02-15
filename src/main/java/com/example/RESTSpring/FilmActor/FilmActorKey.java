@@ -13,23 +13,26 @@ public class FilmActorKey implements Serializable {
     @Column(name="actor_id", nullable = false)
     private Integer actorId;
 
+
     public FilmActorKey(){}
-    public FilmActorKey(Integer filmId, Integer actorId)
-    {
+
+    public FilmActorKey(Integer filmId, Integer actorId) {
         this.filmId = filmId;
         this.actorId = actorId;
     }
+
 
     public Integer getFilmId() {
         return filmId;
     }
 
-    public void setFilmId(Integer filmId) {
-        this.filmId = filmId;
-    }
-
     public Integer getActorId() {
         return actorId;
+    }
+
+
+    public void setFilmId(Integer filmId) {
+        this.filmId = filmId;
     }
 
     public void setActorId(Integer actorId) {

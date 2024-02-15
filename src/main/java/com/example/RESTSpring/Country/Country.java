@@ -17,7 +17,6 @@ import java.util.List;
         property = "country_id")
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class Country {
-    public Country(){}
 
     @Id
     @Column(name="country_id",unique=true)
@@ -32,29 +31,28 @@ public class Country {
     private List<City> cities;
 
 
+    public Country(){}
 
-    public List<City> getCityQuery(String Country){
-        return null;
-    }
 
     public Integer getCountryId() {
         return countryId;
-    }
-
-    public void setCountryId(Integer countryId) {
-        this.countryId = countryId;
     }
 
     public String getCountry() {
         return country;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
     public List<City> getCities() {
         return cities;
+    }
+
+
+    public void setCountryId(Integer countryId) {
+        this.countryId = countryId;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public void setCities(List<City> cities) {

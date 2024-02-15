@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/films")
 public class FilmController {
 
-    private FilmService filmService;
+    private final FilmService filmService;
 
     public FilmController(FilmService filmService) {
         this.filmService = filmService;
@@ -21,7 +21,7 @@ public class FilmController {
     @GetMapping("/{id}")
     public Film GetFilm(@PathVariable("id") Integer filmId)
     {
-        return  this.filmService.GetFilm(filmId);
+        return this.filmService.GetFilm(filmId);
     }
 
     @PostMapping("")
@@ -34,7 +34,6 @@ public class FilmController {
     public Film DeleteFilm(@PathVariable("id") Integer filmId)
     {
         return this.filmService.DeleteFilm(filmId);
-
     }
 
     @PatchMapping("/{id}")

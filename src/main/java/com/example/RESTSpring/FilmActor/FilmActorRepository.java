@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Set;
 
 public interface FilmActorRepository extends JpaRepository<FilmActor, FilmActorKey> {
+
     Set<FilmActor> findByFilmActorKeyFilmId(Integer filmId);
     Set<FilmActor> findByFilmActorKeyActorId(Integer actorId);
 

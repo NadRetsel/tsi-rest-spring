@@ -13,12 +13,14 @@ public class FilmActor {
     @EmbeddedId
     private FilmActorKey filmActorKey;
 
+
     public FilmActor(){}
 
     public FilmActor(Integer filmId, Integer actorId)
     {
         this.filmActorKey = new FilmActorKey(filmId, actorId);
     }
+
 
     public FilmActorKey getFilmActorKey() {
         return filmActorKey;
