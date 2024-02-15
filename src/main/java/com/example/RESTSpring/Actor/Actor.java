@@ -40,13 +40,13 @@ public class Actor {
     public Actor(){}
     public Actor(ActorDTO actor_dto)
     {
-        this.UpdateActor(actor_dto);
+        this.updateActor(actor_dto);
     }
 
-    public void UpdateActor(ActorDTO actorDto)
+    public void updateActor(ActorDTO actorDTO)
     {
-       if(actorDto.getFirstName() != null) this.lastName = actorDto.getFirstName();
-       if(actorDto.getLastName() != null)  this.lastName = actorDto.getLastName();
+       if(actorDTO.getFirstName() != null) this.firstName = actorDTO.getFirstName();
+       if(actorDTO.getLastName() != null)  this.lastName = actorDTO.getLastName();
     }
 
 
@@ -67,10 +67,10 @@ public class Actor {
         this.actorId = actorId;
     }
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        this.firstName = firstName.toUpperCase();
     }
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        this.lastName = lastName.toUpperCase();
     }
     public void setFilms(Set<Film> films) {
         this.films = films;

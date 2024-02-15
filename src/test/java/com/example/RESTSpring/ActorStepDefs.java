@@ -1,11 +1,23 @@
 package com.example.RESTSpring;
 
 import com.example.RESTSpring.Actor.Actor;
+import com.example.RESTSpring.Actor.ActorDTO;
+import com.example.RESTSpring.Actor.ActorRepository;
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.jupiter.api.Assertions;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.query.FluentQuery;
+
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -13,48 +25,113 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class ActorStepDefs {
 
-    private Actor new_actor;
+    private Map<Integer, Set<Integer>> mockActorRepoistory;
+    private Map<Integer, Set<Integer>> mockFilmRepositoru;
+    private Actor actor;
 
-    private String input_first_name;
-    private String input_last_name;
-
+    private String inputFirstName;
+    private String inputLastName;
 
 
     @Given("first name is set to {string}")
-    public void FirstName(String first_name)
-    {
-        this.input_first_name = first_name;
+    public void GivenFirstName(String firstName) {
+        this.inputFirstName = firstName;
     }
+
     @Given("last name is set to {string}")
-    public void LastName(String last_name)
-    {
-        this.input_last_name = last_name;
+    public void GivenLastName(String lastName) {
+        this.inputLastName = lastName;
     }
+
+    @Given("an Actor called {string} {string}")
+    public void GivenActor(String firstName, String lastName) {
+        this.actor = new Actor();
+        this.actor.setFirstName(firstName);
+        this.actor.setLastName(lastName);
+    }
+
+    @Given("the following Films exist:")
+    public void GivenFilmsExist(DataTable filmsTable) {
+        this.mockFilmRepositoru = new HashMap<>();
+
+        List<Map<String, String>> rows = filmsTable.asMaps(String.class, String.class);
+        for(Map<String, String> film : rows) {
+            Integer filmId = Integer.valueOf(film.get("filmId"));
+            Set<Integer> actorIds = Arrays.stream(film.get("actorIds").split(","))
+                    .map(Integer::valueOf)
+                    .collect(Collectors.toSet());
+
+            this.mockFilmRepositoru.put(filmId, actorIds);
+        }
+    }
+
+    @Given("the following Actors exist:")
+    public void GivenActorsExist(DataTable actorsTable) {
+        this.mockActorRepoistory = new HashMap<>();
+
+        List<Map<String, String>> rows = actorsTable.asMaps(String.class, String.class);
+        for(Map<String, String> actors : rows) {
+            Integer actorId = Integer.valueOf(actors.get("actorId"));
+            Set<Integer> filmIds = Arrays.stream(actors.get("filmIds").split(","))
+                    .map(Integer::valueOf)
+                    .collect(Collectors.toSet());
+
+            this.mockActorRepoistory.put(actorId, filmIds);
+        }
+    }
+
 
     @When("I create a new Actor")
-    public void CreateNewActor()
-    {
-        this.new_actor = new Actor();
-        this.new_actor.setFirstName(this.input_first_name);
-        this.new_actor.setLastName(this.input_last_name);
+    public void WhenCreateNewActor() {
+        this.actor = new Actor();
+        this.actor.setFirstName(this.inputFirstName);
+        this.actor.setLastName(this.inputLastName);
     }
+
+    @When("I update Actor's name to {string} {string}")
+    public void WhenUpdateFirstName(String firstName, String lastName){
+        ActorDTO actorDTO = new ActorDTO();
+        actorDTO.setFirstName(firstName);
+        actorDTO.setLastName(lastName);
+
+        this.actor.updateActor(actorDTO);
+    }
+
+    @When("I add Film {int} to Actor {int}")
+    public void WhenAddFilmToActor(Integer filmId, Integer actorId) {
+        Set<Integer> allFilmsByActor = this.mockActorRepoistory.get(actorId);
+        allFilmsByActor.add(filmId);
+        this.mockActorRepoistory.put(actorId, allFilmsByActor);
+    }
+
 
     @Then("the Actor names should be filled")
-    public void FilledActor()  {
-        Assertions.assertNotNull(this.new_actor.getFirstName());
-        Assertions.assertNotNull(this.new_actor.getLastName());
+    public void ThenFilledActor()  {
+        Assertions.assertNotNull(this.actor.getFirstName());
+        Assertions.assertNotNull(this.actor.getLastName());
     }
-    @And("first name should be {string}")
-    public void MatchingFirstName(String expexcted_first_name)
-    {
-        Assertions.assertEquals(expexcted_first_name, this.new_actor.getFirstName());
+
+    @Then("first name should be {string}")
+    public void ThenMatchingFirstName(String expectedFirstName) {
+        Assertions.assertEquals(expectedFirstName, this.actor.getFirstName());
 
     }
-    @And("last name should be {string}")
-    public void MatchingLastName(String expexcted_last_name)
-    {
-        Assertions.assertEquals(expexcted_last_name, this.new_actor.getLastName());
 
+    @Then("last name should be {string}")
+    public void ThenMatchingLastName(String expectedLastName) {
+        Assertions.assertEquals(expectedLastName, this.actor.getLastName());
+
+    }
+
+    @Then("Actor {int} should be in Film {int}")
+    public void ThenActorInFilm(Integer actorId, Integer filmId) {
+        Set<Integer> allFilmsByActor = this.mockActorRepoistory.get(actorId);
+        Assertions.assertTrue(allFilmsByActor.contains(filmId));
+    }
+    @Then("Actor {int} should not be in Film {int}")
+    public void ThenActorNotInFilm(Integer actorId, Integer filmId) {
+        Set<Integer> allFilmsByActor = this.mockActorRepoistory.get(actorId);
+        Assertions.assertFalse(allFilmsByActor.contains(filmId));
     }
 
 

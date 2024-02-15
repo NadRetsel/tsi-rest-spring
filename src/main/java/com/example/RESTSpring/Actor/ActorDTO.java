@@ -31,10 +31,10 @@ public class ActorDTO {
         this.actorId = actorId;
     }
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        this.firstName = firstName.toUpperCase();
     }
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        this.lastName = lastName.toUpperCase();
     }
     public void setFilmIds(Set<Integer> filmIds) {
         this.filmIds = filmIds;

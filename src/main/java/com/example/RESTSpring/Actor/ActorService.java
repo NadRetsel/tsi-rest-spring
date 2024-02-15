@@ -87,7 +87,7 @@ public class ActorService {
      */
     public Actor UpdateActor(Integer actorId, ActorDTO actorDTO) {
         Actor actor = GetActorByID(actorId);
-        actor.UpdateActor(actorDTO);
+        actor.updateActor(actorDTO);
 
         this.actorRepository.save(actor);
 
