@@ -10,8 +10,10 @@ public interface FilmActorRepository extends JpaRepository<FilmActor, FilmActorK
     Set<FilmActor> findByFilmActorKeyFilmId(Integer filmId);
     Set<FilmActor> findByFilmActorKeyActorId(Integer actorId);
 
+    
     @Transactional
     void deleteByFilmActorKeyFilmId(Integer filmId);
+
     @Transactional
     void deleteByFilmActorKeyActorId(Integer actorId);
 

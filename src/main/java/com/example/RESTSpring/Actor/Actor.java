@@ -38,16 +38,14 @@ public class Actor {
     private Set<Film> films = new HashSet<>();
 
     public Actor(){}
-    public Actor(Integer actorId) {
-        this.actorId = actorId;
-    }
+
     public Actor(ActorDTO actor_dto)
     {
         this.updateActor(actor_dto);
     }
 
-    public void updateActor(ActorDTO actorDTO)
-    {
+
+    public void updateActor(ActorDTO actorDTO) {
        if(actorDTO.getFirstName() != null) this.firstName = actorDTO.getFirstName();
        if(actorDTO.getLastName() != null)  this.lastName = actorDTO.getLastName();
     }
@@ -56,25 +54,32 @@ public class Actor {
     public Integer getActorId() {
         return actorId;
     }
+
     public String getFirstName() {
         return firstName;
     }
+
     public String getLastName() {
         return lastName;
     }
+
     public Set<Film> getFilms() {
         return films;
     }
 
+
     public void setActorId(Integer actorId) {
         this.actorId = actorId;
     }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName.toUpperCase();
     }
+
     public void setLastName(String lastName) {
         this.lastName = lastName.toUpperCase();
     }
+
     public void setFilms(Set<Film> films) {
         this.films = films;
     }

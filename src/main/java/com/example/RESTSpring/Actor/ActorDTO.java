@@ -17,25 +17,32 @@ public class ActorDTO {
     public Integer getActorId() {
         return this.actorId;
     }
+
     public String getFirstName() {
         return this.firstName;
     }
+
     public String getLastName() {
         return this.lastName;
     }
+
     public Set<Integer> getFilmIds() {
         return this.filmIds;
     }
 
+
     public void setActorId(Integer actorId) {
         this.actorId = actorId;
     }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName.toUpperCase();
     }
+
     public void setLastName(String lastName) {
         this.lastName = lastName.toUpperCase();
     }
+
     public void setFilmIds(Set<Integer> filmIds) {
         this.filmIds = filmIds;
     }

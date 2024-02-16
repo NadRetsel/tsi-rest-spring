@@ -68,8 +68,8 @@ public class Film {
         this.updateFilm(filmDto);
     }
 
-    public void updateFilm(FilmDTO filmDto)
-    {
+
+    public void updateFilm(FilmDTO filmDto) {
         if(null != filmDto.getFilmId())             this.filmId = filmDto.getFilmId();
         if(null != filmDto.getTitle())              this.title = filmDto.getTitle();
         if(null != filmDto.getDescription())        this.description = filmDto.getDescription();
