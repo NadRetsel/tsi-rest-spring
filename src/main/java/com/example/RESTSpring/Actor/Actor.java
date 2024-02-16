@@ -38,6 +38,9 @@ public class Actor {
     private Set<Film> films = new HashSet<>();
 
     public Actor(){}
+    public Actor(Integer actorId) {
+        this.actorId = actorId;
+    }
     public Actor(ActorDTO actor_dto)
     {
         this.updateActor(actor_dto);

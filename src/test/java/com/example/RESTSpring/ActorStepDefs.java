@@ -3,6 +3,7 @@ package com.example.RESTSpring;
 import com.example.RESTSpring.Actor.Actor;
 import com.example.RESTSpring.Actor.ActorDTO;
 import com.example.RESTSpring.Actor.ActorRepository;
+import com.example.RESTSpring.Film.Film;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -25,8 +26,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class ActorStepDefs {
 
-    private Map<Integer, Set<Integer>> mockActorRepoistory;
-    private Map<Integer, Set<Integer>> mockFilmRepositoru;
+    private Map<Integer, Actor> mockActorRepoistory;
+    private Map<Integer, Film> mockFilmRepositoru;
     private Actor actor;
 
     private String inputFirstName;
@@ -55,28 +56,55 @@ public class ActorStepDefs {
         this.mockFilmRepositoru = new HashMap<>();
 
         List<Map<String, String>> rows = filmsTable.asMaps(String.class, String.class);
-        for(Map<String, String> film : rows) {
-            Integer filmId = Integer.valueOf(film.get("filmId"));
-            Set<Integer> actorIds = Arrays.stream(film.get("actorIds").split(","))
-                    .map(Integer::valueOf)
+        for(Map<String, String> filmEntry : rows)
+        {
+
+            Integer filmId = Integer.valueOf(filmEntry.get("filmId"));
+            Set<Integer> actorIds = Arrays.stream(filmEntry.get("actorIds").split(","))
+                    .map(Integer :: valueOf)
                     .collect(Collectors.toSet());
 
-            this.mockFilmRepositoru.put(filmId, actorIds);
+            Set<Actor> actors = new HashSet<>();
+            for(Integer actorId : actorIds) {
+                Actor actor = new Actor();
+                actor.setActorId(actorId);
+
+                actors.add(actor);
+            }
+
+            Film film = new Film();
+            film.setFilmId(filmId);
+            film.setActors(actors);
+
+            this.mockFilmRepositoru.put(filmId, film);
         }
     }
 
-    @Given("the following Actors exist:")
+    @Given("the following ActorDTOs exist:")
     public void GivenActorsExist(DataTable actorsTable) {
         this.mockActorRepoistory = new HashMap<>();
 
         List<Map<String, String>> rows = actorsTable.asMaps(String.class, String.class);
-        for(Map<String, String> actors : rows) {
-            Integer actorId = Integer.valueOf(actors.get("actorId"));
-            Set<Integer> filmIds = Arrays.stream(actors.get("filmIds").split(","))
-                    .map(Integer::valueOf)
+        for(Map<String, String> actorEntry : rows) {
+            Integer actorId = Integer.valueOf(actorEntry.get("actorId"));
+            Set<Integer> filmIds = Arrays.stream(actorEntry.get("filmIds").split(","))
+                    .map(Integer :: valueOf)
                     .collect(Collectors.toSet());
 
-            this.mockActorRepoistory.put(actorId, filmIds);
+            Set<Film> films = new HashSet<>();
+            for(Integer filmId : filmIds)
+            {
+                Film film = new Film();
+                film.setFilmId(filmId);
+
+                films.add(film);
+            }
+
+            Actor actor = new Actor();
+            actor.setActorId(actorId);
+            actor.setFilms(films);
+
+            this.mockActorRepoistory.put(actorId, actor);
         }
     }
 
@@ -99,9 +127,15 @@ public class ActorStepDefs {
 
     @When("I add Film {int} to Actor {int}")
     public void WhenAddFilmToActor(Integer filmId, Integer actorId) {
-        Set<Integer> allFilmsByActor = this.mockActorRepoistory.get(actorId);
-        allFilmsByActor.add(filmId);
-        this.mockActorRepoistory.put(actorId, allFilmsByActor);
+        Actor actor = this.mockActorRepoistory.get(actorId);
+        Set<Film> allFilmsByActor = actor.getFilms();
+
+        Film film = this.mockFilmRepositoru.get(filmId);
+        allFilmsByActor.add(film);
+
+        actor.setFilms(allFilmsByActor);
+
+        this.mockActorRepoistory.put(actorId, actor);
     }
 
 
@@ -125,13 +159,28 @@ public class ActorStepDefs {
 
     @Then("Actor {int} should be in Film {int}")
     public void ThenActorInFilm(Integer actorId, Integer filmId) {
-        Set<Integer> allFilmsByActor = this.mockActorRepoistory.get(actorId);
-        Assertions.assertTrue(allFilmsByActor.contains(filmId));
+        Actor actor = this.mockActorRepoistory.get(actorId);
+        Set<Film> allFilmsByActor = actor.getFilms();
+
+        Assertions.assertTrue(FindFilm(filmId, allFilmsByActor));
     }
     @Then("Actor {int} should not be in Film {int}")
     public void ThenActorNotInFilm(Integer actorId, Integer filmId) {
-        Set<Integer> allFilmsByActor = this.mockActorRepoistory.get(actorId);
-        Assertions.assertFalse(allFilmsByActor.contains(filmId));
+        Actor actor = this.mockActorRepoistory.get(actorId);
+        Set<Film> allFilmsByActor = actor.getFilms();
+
+        Assertions.assertFalse(FindFilm(filmId, allFilmsByActor));
+    }
+
+
+
+    public boolean FindFilm(Integer filmId, Set<Film> allFilms) {
+        for(Film film : allFilms)
+        {
+            if(filmId.equals(film.getFilmId())) return true;
+        }
+
+        return false;
     }
 
 

@@ -27,13 +27,13 @@ Feature: Actors
       | "hello"     | "world"       | "HELLO"           | "WORLD"          |
 
 
-  Scenario: Adding Films to Actor
+  Scenario: Adding Films to ActorDTO
     Given the following Films exist:
       | filmId | actorIds |
       | 1      | 1,2,3    |
       | 2      | 2,3,4    |
       | 3      | 3,4,5    |
-      And the following Actors exist:
+      And the following ActorDTOs exist:
         | actorId | filmIds |
         | 1      | 1        |
         | 2      | 1,2      |
